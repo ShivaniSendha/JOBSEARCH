@@ -1,0 +1,37 @@
+#footers {
+  background: linear-gradient(45deg, rgb(186, 239, 193), rgb(186, 237, 186)); 
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  color: white; 
+  padding: 20px; 
+}
+
+
+.footer-bottom p {
+  margin: 0;
+}
+ul li {
+  list-style-type: none;
+  padding: 5px 0;
+}
+
+ul li:hover {
+  margin-left: 5px;
+  color: green;
+  transition: margin-left 0.3s ease, color 0.3s ease; 
+}
+.footer {
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.social-icons .icon {
+  color: #333;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icons .icon:hover {
+  color: green;
+  transform: scale(1.1);
+}
+
