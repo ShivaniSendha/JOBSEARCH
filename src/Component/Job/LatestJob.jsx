@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import LatestCards from '../../Component/Job/LatestCards';
+import Navbar from '../Navbar/Navbar';
 
 
 
@@ -35,11 +36,13 @@ const LatestJob = () => {
 
 
   return (
+    <>
+<section className='p-5' id="top-jobs">
     <div className="container mt-4  d-flex flex-column justify-content-around align-items-center ">
       <h1>
         <span className="text-primary ">Latest & Top</span> Job Openings
       </h1>
-      <div className="row mt-3 p-2 d-flex  justify-content-around align-items-center  ">
+   <div className='div2'>
         {jobs && jobs?.map((item, index) => (
 
           <div className="col-md-3 mb-4 " key={index} >
@@ -47,7 +50,9 @@ const LatestJob = () => {
           </div>
         ))}
       </div>
-    </div >
+      </div>
+      </section>
+      </>
   );
 };
 

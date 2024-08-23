@@ -201,7 +201,9 @@ const AddJob = () => {
         <img src={logo} className="hero-image" alt="img" />
         <div className="hero-text">
           <h1>Create Job</h1>
-          <span onClick={HomeClick} className='Home'>Home</span> <span>&gt;&gt; Create Job</span>
+          <div className='flex align-items-center m-3'>
+          <span onClick={HomeClick} className="Home btn btn-outline-success ">Home</span> <span  className="">&gt;&gt; Create Job </span>
+          </div>
         </div>
       </div>
       <div className='container bg-secondary text-light fs-3 fw-bold p-2 mt-4 '>

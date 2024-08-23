@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../../Component/Navbar/Navbar';
-import logo from '../../assets/corparate.jpg';
+import logo from '../../assets/logoReg.avif';
 import './../Registration/Registration.css'; // Import the CSS file for styling
 import Footer from '../../Component/Footer/Footer';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
@@ -93,8 +93,10 @@ const Registration = () => {
         <img src={logo} className="hero-image" alt="img" />
         <div className="hero-text">
           <h1>Create an Account</h1>
-          <span onClick={HomeClick} className='Home'>Home</span> <span>&gt;&gt; Sign Up</span>
-        </div>
+          <div className='flex align-items-center m-3'>
+          <span onClick={HomeClick} className="Home btn btn-outline-success ">Home</span> <span  className="">&gt;&gt; Sign Up </span>
+          </div>
+          </div>
       </div>
       <form onSubmit={collectData} className="container mt-5 mb-5 col-4">
         <div className='p-5 border border-2 rounded'>

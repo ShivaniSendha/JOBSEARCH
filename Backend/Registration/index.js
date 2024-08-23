@@ -1,5 +1,4 @@
-/* eslint-disable no-undef */
-// server.js
+
 const express = require('express');
 const port='8000'
 const UserRouter = require('../Routes/user.routes.js')

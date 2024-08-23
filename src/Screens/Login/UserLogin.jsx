@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../Component/Navbar/Navbar.jsx';
-import logo from '../../assets/carousel3.jpg';
+import logo from '../../assets/logoReg.avif';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from '../../Component/Footer/Footer.jsx';
@@ -87,11 +87,13 @@ const UserLogin = () => {
   return (
     <>
       <Navbar />
-      <div className="hero-container1">
-        <img src={logo} className="hero-image1" alt="img" />
-        <div className="hero-text1">
+      <div className="hero-container">
+        <img src={logo} className="hero-image" alt="img" />
+        <div className="hero-text">
           <h1>Login</h1>
-          <span onClick={HomeClick} className="Home1">Home</span> <span>&gt;&gt; Login </span>
+          <div className='flex align-items-center m-3'>
+          <span onClick={HomeClick} className="Home btn btn-outline-success ">Home</span> <span  className="">&gt;&gt; Login </span>
+          </div>
         </div>
       </div>
       <form onSubmit={collectData} className="container mt-5 mb-5 col-4">

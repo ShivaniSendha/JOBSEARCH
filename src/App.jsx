@@ -11,6 +11,10 @@ import { ToastContainer } from 'react-toastify';
 import Navbar from './Component/Navbar/Navbar.jsx';
 import Footer from './Component/Footer/Footer.jsx';
 import AddJob from './Component/Job/AddJob.jsx';
+import LatestJob from './Component/Job/LatestJob.jsx';
+import ShowJobs from './Component/Job/JobDetails.jsx';
+import JobDetails from './Component/Job/JobDetails.jsx';
+
 
 
 
@@ -24,7 +28,10 @@ function App() {
         <Route path="/" element={<Navbar />} />
         <Route path="/createJob" element={<AddJob />} />
         <Route path="/footer" element={<Footer />} />
+        <Route path="/jobdetails" element={<LatestJob />} />
         <Route path='/userlogin' element={<UserLogin />} />
+        <Route path='/jobsdetails' element={<JobDetails />} />
+    
         <Route path="/registration" element={<Registration />} />
       </Routes>
     </Router>

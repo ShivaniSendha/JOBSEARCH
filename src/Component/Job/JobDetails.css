@@ -1,0 +1,21 @@
+.jobType{
+    background: linear-gradient(45deg, rgb(230, 255, 233), rgb(233, 245, 233)); 
+    border-radius: 5px;
+}
+
+.card3{
+border-bottom-left-radius: 5px;
+border-bottom-right-radius: 5px;
+}
+.job{
+    width: auto;
+    height: auto;
+    font-size: 20px;
+
+}
+.First1{
+   
+    width: auto;
+
+  
+}

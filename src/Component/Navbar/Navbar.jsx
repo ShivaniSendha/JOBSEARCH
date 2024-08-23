@@ -13,8 +13,22 @@ const Navbar = () => {
   const handleClickHome = () => {
     navigate('/');
     setActiveItem('home');
+    
   };
-
+  const handlClickShowjob = () => {
+   
+    navigate('/#top-jobs'); 
+    setActiveItem('jobdetails');
+    
+    
+    setTimeout(() => {
+      const section = document.getElementById('top-jobs');
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 0);
+  };
+  
   const handleClick = () => {
     navigate('/registration');
     setActiveItem('registration');
@@ -22,12 +36,12 @@ const Navbar = () => {
 
   const handleClickLogin = () => {
     navigate('/userlogin');
-    setActiveItem('login'); // Reset active item when navigating to login
+    setActiveItem('login'); 
   };
 
   const handleClickCreateJob = () => {
     navigate('/createJob');
-    setActiveItem('addJob'); // Set active item to "addJob"
+    setActiveItem('addJob');
   };
 
   useEffect(() => {
@@ -86,10 +100,10 @@ const Navbar = () => {
                 </li>
                 <li>
                   <a
-                    className="dropdown-item"
-                    href="#"
+                    className={`dropdown-item ${activeItem === 'jobdetails' ? 'active' : ''}`}
+                    onClick={handlClickShowjob}
                   >
-                    Job Details
+                   Show Job 
                   </a>
                 </li>
               </ul>
