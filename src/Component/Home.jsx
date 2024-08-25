@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-undef */
 // eslint-disable-next-line no-unused-vars
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import logo from '../assets/logoReg.avif';
 import '../Component/Home.css'
@@ -16,12 +16,13 @@ const Home = () => {
 
 
 
+
   return (
     <>
       <Navbar />
-    
-      <img className='img1 ' src={logo} 
-     alt="Your Image Description"></img>    
+
+      <img className='img1 ' src={logo}
+        alt="Your Image Description"></img>
 
       <div className="hero-text flex rounded rounded-5 " style={{ top: '35%' }}>
         <h1 className='heading'>Search , Apply & <br></br> Get Your <span className='text-primary'>Dreams Jobs</span></h1>
@@ -31,7 +32,7 @@ const Home = () => {
 
 
       <LatestJob />
-      <Footer />
+   
 
 
     </>

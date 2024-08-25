@@ -4,23 +4,44 @@ import logo from '../../assets/softude.png';
 import { useNavigate } from 'react-router-dom';
 import { FaLongArrowAltRight } from "react-icons/fa";
 import '../Navbar/Navbar.css';
-
+import { useAuth } from '../Context/AuthContext';
+import { IoIosContact } from "react-icons/io";
+import Swal from 'sweetalert2'
 const Navbar = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
+  const [userData, setUserData] = useState('');
+  const handleSweetAlertLogout = () => {
+    Swal.fire('Success!', 'Logout Successfully Done', 'success')
+  }
+  
+  
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    setUserData(user);
+  }, []);
+  const handleClickProfileUpdate = () => {
+    navigate('/profileupdate');
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setUserData(null);
+    navigate('/userlogin');
+
+  };
 
   const handleClickHome = () => {
     navigate('/');
     setActiveItem('home');
-    
   };
-  const handlClickShowjob = () => {
-   
-    navigate('/#top-jobs'); 
+
+  const handleClickShowJob = () => {
+    navigate('/#top-jobs');
     setActiveItem('jobdetails');
-    
-    
+
     setTimeout(() => {
       const section = document.getElementById('top-jobs');
       if (section) {
@@ -28,29 +49,25 @@ const Navbar = () => {
       }
     }, 0);
   };
-  
-  const handleClick = () => {
-    navigate('/registration');
-    setActiveItem('registration');
-  };
-
-  const handleClickLogin = () => {
-    navigate('/userlogin');
-    setActiveItem('login'); 
-  };
 
   const handleClickCreateJob = () => {
     navigate('/createJob');
     setActiveItem('addJob');
   };
 
+  const handleClickLogin = () => {
+    navigate('/userlogin');
+    setActiveItem('login');
+  };
+
+  const handleClickSignUp = () => {
+    navigate('/registration');
+    setActiveItem('registration');
+  };
+
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 50);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -61,7 +78,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className={`navbar navbar-expand-lg shadow-sm p-3  ${scrolled ? 'navbar-scrolled' : 'bg-transparent'}`}>
+    <nav className={`navbar navbar-expand-lg shadow-sm p-3 ${scrolled ? 'navbar-scrolled' : 'bg-transparent'}`}>
       <div className="container-fluid">
         <img className="navbar-brand" src={logo} alt="Logo" style={{ width: '10%', height: '50px', borderRadius: '5px' }} />
         <button
@@ -75,46 +92,86 @@ const Navbar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-          <ul className="navbar-nav mb-2 mb-lg-0 d-flex align-items-end">
-            <li className="nav-item">
-              <button className={`btn btn-outline-success ms-2 ${activeItem === 'home' ? 'active' : ''}`} type="submit" onClick={handleClickHome}>
-                Home
-              </button>
-            </li>
-            <div className="dropdown">
+        <div className='main'>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav mb-2 mb-lg-0 d-flex align-items-end">
               <li className="nav-item">
-                <button className={`btn btn-outline-success dropdown-toggle ms-2 ${activeItem === 'addJob' ? 'active' : ''}`} type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Job
+                <button className={`btn btn-outline-success ms-2 ${activeItem === 'home' ? 'active' : ''}`} type="button" onClick={handleClickHome}>
+                  Home
                 </button>
               </li>
-              <ul className="dropdown-menu">
-                <li>
-                  <a
-                    className={`dropdown-item ${activeItem === 'addJob' ? 'active' : ''}`}
-                    href="#"
-                    onClick={handleClickCreateJob}
-                  >
-                    Add Job
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className={`dropdown-item ${activeItem === 'jobdetails' ? 'active' : ''}`}
-                    onClick={handlClickShowjob}
-                  >
-                   Show Job 
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </ul>
-          <button className={`btn btn-outline-success ms-2 ${activeItem === 'login' ? 'active' : ''}`} type="submit" onClick={handleClickLogin}>
-            Login <FaLongArrowAltRight />
-          </button>
-          <button className={`btn btn-outline-success ms-2 ${activeItem === 'registration' ? 'active' : ''}`} type="submit" onClick={handleClick}>
-            Sign-up <FaLongArrowAltRight />
-          </button>
+              <li className="nav-item dropdown">
+                <button className={`btn btn-outline-success dropdown-toggle ms-2 ${activeItem === 'addJob' || activeItem === 'jobdetails' ? 'active' : ''}`} type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Job
+                </button>
+                <ul className="dropdown-menu">
+                  <li>
+                    <a
+                      className={`dropdown-item ${activeItem === 'addJob' ? 'active' : ''}`}
+                      href="#"
+                      onClick={handleClickCreateJob}
+                    >
+                      Add Job
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className={`dropdown-item ${activeItem === 'jobdetails' ? 'active' : ''}`}
+                      href="#"
+                      onClick={handleClickShowJob}
+                    >
+                      Show Job
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            {userData ? (
+              <div className="dropdownP ms-3">
+                <button className="btn btn-primary profile" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {userData?.user?.name[0].toUpperCase()}
+                </button>
+                <ul className="dropdown-menuP">
+                  <div className='Profilelogo'>
+                    <IoIosContact size={80} color='blue' className='Profilelogo1' />
+
+                    <p className='fw-bold'>{userData?.user?.name.toUpperCase()}</p>
+                  </div>
+                  <li>
+                    <a
+                      className="dropdown-itemP"
+                      href="#"
+                      onClick={() => {
+                        handleLogout();
+                        handleSweetAlertLogout();
+                      }}
+                    >
+                      Logout
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className={`dropdown-itemP ${activeItem === 'jobdetails' ? 'active' : ''}`}
+                      href="#"
+                      onClick={handleClickProfileUpdate}
+                    >
+                      Show Profile
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <>
+                <button className={`btn btn-outline-success ms-2 ${activeItem === 'login' ? 'active' : ''}`} type="button" onClick={handleClickLogin}>
+                  Login <FaLongArrowAltRight />
+                </button>
+                <button className={`btn btn-outline-success ms-2 ${activeItem === 'registration' ? 'active' : ''}`} type="button"
+                 onClick={handleClickSignUp}>
+                  Sign-up <FaLongArrowAltRight />
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </nav>

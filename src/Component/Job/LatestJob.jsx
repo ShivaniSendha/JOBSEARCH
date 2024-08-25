@@ -17,6 +17,8 @@ const LatestJob = () => {
 
   }, [])
 
+
+
   const getData = async () => {
     fetch('http://localhost:8000/Addnewjob/getAlljob')
       .then(response => {
@@ -26,7 +28,6 @@ const LatestJob = () => {
         return response.json();
       })
       .then(jsonData =>
-
         setJobs(jsonData?.job)
       )
       .catch(error => {
@@ -37,22 +38,22 @@ const LatestJob = () => {
 
   return (
     <>
-<section className='p-5' id="top-jobs">
-    <div className="container mt-4  d-flex flex-column justify-content-around align-items-center ">
-      <h1>
-        <span className="text-primary ">Latest & Top</span> Job Openings
-      </h1>
-   <div className='div2'>
-        {jobs && jobs?.map((item, index) => (
+      <section className='p-5' id="top-jobs">
+        <div className="container mt-4  d-flex flex-column justify-content-around align-items-center ">
+          <h1>
+            <span className="text-primary ">Latest & Top</span> Job Openings
+          </h1>
+          <div className='div2'>
+            {jobs && jobs?.map((item, index) => (
 
-          <div className="col-md-3 mb-4 " key={index} >
-            <LatestCards jobId={item} />
+              <div className="col-md-3 mb-4 " key={index} >
+                <LatestCards jobId={item} />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      </div>
+        </div>
       </section>
-      </>
+    </>
   );
 };
 

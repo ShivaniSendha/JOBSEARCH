@@ -4,17 +4,17 @@ import '../Job/LatestCards.css'
 import { useNavigate } from 'react-router-dom';
 
 const LatestCards = (item) => {
-  const navigate=useNavigate();
-   console.log('item', item);
+  const navigate = useNavigate();
+  console.log('item', item);
 
-  const [active,setActive]=useState();
- 
+  const [active, setActive] = useState();
+
   const JobDetails = () => {
-    // Navigate to JobDetails page and pass the job data
+    
     navigate('/jobsdetails', { state: { job: item.jobId } });
   };
   return (
-<>
+    <>
 
       <div className='div'>
 
@@ -31,11 +31,15 @@ const LatestCards = (item) => {
           <span className="badge bg-primary w-10">Position {item?.jobId?.vacancies}</span>
           <span className="badge bg-primary w-10">{item?.jobId?.salaryRange}</span>
           <span className="badge bg-primary w-10">{item?.jobId?.experience}</span>
-         
-          <button onClick={JobDetails} type="button" class="btn btn-outline-dark">Show Details </button>
+
+          <button onClick={JobDetails} type="button" className="btn btn-outline-dark">Show Details </button>
+          {
+            item?.jobId?.status && <p className='text-success mt-3'>Applied</p>
+          }
+
         </div>
       </div>
-      </>
+    </>
   )
 }
 

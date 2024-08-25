@@ -1,47 +1,100 @@
+/* Navbar CSS */
 .navbar {
   position: fixed;
   width: 100%;
-margin-top: -10px;
+  margin-top: -10px;
   z-index: 1000;
   transition: background-color 0.3s ease;
-
 }
 
-.navbar-scrolled  {
-  background: linear-gradient(45deg, rgb(186, 239, 193), rgb(186, 237, 186)); 
-
+.navbar-scrolled {
+  background: linear-gradient(45deg, rgb(186, 239, 193), rgb(186, 237, 186));
 }
 
 .bg-transparent {
   background-color: transparent;
-
 }
 
+/* Dropdown for Job - no specific height/width settings */
 .dropdown:hover .dropdown-menu {
   display: block;
-  margin-top: 0; 
- 
+
+  padding: 10px;
 }
 
 .dropdown-menu {
-  background-color: #f8f9fa; 
+  background-color: #f8f9fa;
   border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(88, 85, 85, 0.1); 
+
+  box-shadow: 0px 4px 8px rgba(88, 85, 85, 0.1);
   transition: opacity 200ms ease-in-out, visibility 200ms ease-in-out;
 }
-
 .dropdown-item:hover {
-  background-color: #28a745; 
-  color: white; 
+  background-color: #28a745;
+  color: white;
 }
-.dropdown-toggle{
- margin-left: 15px;
+
+.dropdownP .dropdown-menuP {
+  display: none; 
+  position: absolute; 
+margin-left: -50px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(88, 85, 85, 0.1);
+  transition: opacity 200ms ease-in-out, visibility 200ms ease-in-out;
+  width: 200px;
+  height: 200px;
 }
-/* Active dropdown item styling */
-.dropdown-item.active {
-  background-color: #28a745; 
+
+
+.dropdownP:hover .dropdown-menuP {
+  display: block; 
+ 
+}
+
+.dropdown-itemP {
+  text-decoration: none;
+padding: 5px;
+
+}
+
+.dropdown-itemP:hover {
+  background-color: #28a745;
+  color: white;
+
+
+}
+
+.dropdown-itemP.active {
+  background-color: #28a745;
   color: white;
   font-weight: bold;
 }
 
 
+.profile {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  text-align: center;
+  margin-left: 30px;
+}
+.Profilelogo{
+  text-align: center;
+
+  
+}
+.collapse {
+ 
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%; 
+}
+
+.main {
+  width: 100%; 
+ max-width: 450px;
+/* Center the main container */
+}

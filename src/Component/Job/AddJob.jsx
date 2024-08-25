@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../Job/AddJob.css'; // Your existing CSS file
 import Navbar from '../Navbar/Navbar';
 import { useNavigate } from 'react-router-dom';
-import logo from '../../assets/logoReg.avif'
+import logo from '../../assets/logoReg.avif';
 import Footer from '../Footer/Footer';
 
 const AddJob = () => {
@@ -32,6 +32,7 @@ const AddJob = () => {
     state: '',
     country: '',
     zipCode: '',
+    status: '',
 
   });
 
@@ -165,28 +166,6 @@ const AddJob = () => {
         // Navigate to login page
         navigate('/userlogin');
         toast.success('Job Created Successful');
-
-        // setJobData({
-        //   companyName: '',
-        //   category: '',
-        //   location: '',
-        //   description: '',
-        //   salaryRange: '',
-        //   vacancies: '',
-        //   experience: '',
-        //   jobType: '',
-        //   qualification: '',
-        //   skills: '',
-        //   email: '',
-        //   phoneNo: ' ',
-        //   address: ' ',
-        //   city: '',
-        //   state: '',
-        //   country: '',
-        //   zipCode: '',
-
-        // }
-        // )
       } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
         toast.error('JOb Created failed. Please try again.');
@@ -202,7 +181,7 @@ const AddJob = () => {
         <div className="hero-text">
           <h1>Create Job</h1>
           <div className='flex align-items-center m-3'>
-          <span onClick={HomeClick} className="Home btn btn-outline-success ">Home</span> <span  className="">&gt;&gt; Create Job </span>
+            <span onClick={HomeClick} className="Home btn btn-outline-success ">Home</span> <span className="">&gt;&gt; Create Job </span>
           </div>
         </div>
       </div>
@@ -458,7 +437,7 @@ const AddJob = () => {
         </form>
       </div>
       <ToastContainer />
-      <Footer />
+      
     </>
 
   );

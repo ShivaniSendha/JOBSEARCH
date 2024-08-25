@@ -1,28 +1,31 @@
+/* eslint-disable no-undef */
 
 const express = require('express');
-const port='8000'
-const UserRouter = require('../Routes/user.routes.js')
-const AddJobRouter=require('../Routes/AddJob.routes.js')
-
 const cors = require('cors');
+require('../db/connection'); // Ensure this path is correct
+const UserRouter = require('../Routes/user.routes.js');
+const AddJobRouter = require('../Routes/AddJob.routes.js');
+
 const app = express();
-app.get('/', (req, res) => {
-  res.send("hii")
-})
+const port = 8000;
 
-require('../db/connection');
-
+// Middleware
 app.use(cors());
 app.use(express.json());
-// =========SignUp/Login
+
+// Routes
+app.get('/', (req, res) => {
+  res.send("Hi, server is running!");
+});
+
+// User-related routes
 app.use('/UserLogin', UserRouter);
 app.use('/UserRegistration', UserRouter);
-// ==============AddJOb
-app.use('/Addnewjob',AddJobRouter)
- 
 
+// Job-related routes
+app.use('/Addnewjob', AddJobRouter);
 
-  app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-  });
-
+// Start server
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});

@@ -1,0 +1,39 @@
+.show1 {
+  display: flex;
+  align-items: center;
+}
+
+.show1 input {
+  border-radius: 0%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-right: none;
+}
+
+.tgl1 {
+  display: flex;
+  align-items: center;
+
+  background-color: none;
+  border: 1px solid #ced4da;
+  border-left: none;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  cursor: pointer;
+  padding: 14px;
+  background-color: none;
+}
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+}
+
+.form-container {
+  grid-column: span 6;
+}
+
+.job-form {
+  /* Your existing form styling */
+}
+

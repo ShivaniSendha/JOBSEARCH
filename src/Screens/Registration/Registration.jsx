@@ -9,8 +9,12 @@ import logo from '../../assets/logoReg.avif';
 import './../Registration/Registration.css'; // Import the CSS file for styling
 import Footer from '../../Component/Footer/Footer';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 const Registration = () => {
+  const handleSweetAlertSIgnup = () => {
+    Swal.fire('Success!', 'Sign Up Successfully Done', 'success')
+  }
   const navigate = useNavigate();
 
   const [name, setName] = useState('');
@@ -60,6 +64,7 @@ const Registration = () => {
     if (!validatePassword(password)) {
       toast.error('Password must be at least 5 digits long and contain only digits.');
       return;
+
     }
 
     try {
@@ -79,7 +84,8 @@ const Registration = () => {
       localStorage.setItem('users', JSON.stringify(result));
 
       navigate('/userlogin');
-      toast.success('Registration Successful');
+ 
+      handleSweetAlertSIgnup();
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
       toast.error('Registration failed. Please try again.');
@@ -94,9 +100,9 @@ const Registration = () => {
         <div className="hero-text">
           <h1>Create an Account</h1>
           <div className='flex align-items-center m-3'>
-          <span onClick={HomeClick} className="Home btn btn-outline-success ">Home</span> <span  className="">&gt;&gt; Sign Up </span>
+            <span onClick={HomeClick} className="Home btn btn-outline-success ">Home</span> <span className="">&gt;&gt; Sign Up </span>
           </div>
-          </div>
+        </div>
       </div>
       <form onSubmit={collectData} className="container mt-5 mb-5 col-4">
         <div className='p-5 border border-2 rounded'>
@@ -142,7 +148,7 @@ const Registration = () => {
         </div>
       </form>
       <ToastContainer />
-      <Footer />
+   
     </>
   );
 };

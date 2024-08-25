@@ -22,7 +22,7 @@ const GetAllJOb = async (req, res) => {
 
     const job = await AddJob.find(req.body);
     console.log('====================================');
-    console.log('222222',job);
+ 
     console.log('====================================');
     return res.status(201).json({ message: "Get All Data...", job });
   } catch (err) {

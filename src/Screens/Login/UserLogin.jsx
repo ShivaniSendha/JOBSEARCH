@@ -8,11 +8,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import Footer from '../../Component/Footer/Footer.jsx';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import '../Login/UserLogin.css'
+import Swal from 'sweetalert2';
 const UserLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-
+  const handleSweetAlertLogin = () => {
+    Swal.fire('Success!', 'Login Successfully Done', 'success')
+  }
+ 
   const tglPasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -73,6 +77,7 @@ const UserLogin = () => {
         const result = JSON.parse(responseText);
         localStorage.setItem('user', JSON.stringify(result));
         toast.success('Login Successful');
+        handleSweetAlertLogin()
         navigate('/');
       } else {
         const errorData = JSON.parse(responseText);
@@ -92,7 +97,7 @@ const UserLogin = () => {
         <div className="hero-text">
           <h1>Login</h1>
           <div className='flex align-items-center m-3'>
-          <span onClick={HomeClick} className="Home btn btn-outline-success ">Home</span> <span  className="">&gt;&gt; Login </span>
+            <span onClick={HomeClick} className="Home btn btn-outline-success ">Home</span> <span className="">&gt;&gt; Login </span>
           </div>
         </div>
       </div>
@@ -102,7 +107,7 @@ const UserLogin = () => {
             <label htmlFor="email" className="form-label">Email</label>
             <input
               type="email"
-              className="form-control"
+              className="form-control "
               placeholder='Please Enter Email'
               id="email"
               value={email}
@@ -129,7 +134,7 @@ const UserLogin = () => {
         </div>
       </form>
       <ToastContainer />
-      <Footer />
+     
     </>
   );
 };
