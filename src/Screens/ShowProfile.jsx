@@ -1,11 +1,15 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import '../Screens/ShowProfile.css';
+import Navbar from '../Component/Navbar/Navbar';
 
 const ShowProfile = () => {
   const UserData = JSON.parse(localStorage.getItem('user'));
-  console.log('UserData:', UserData?.name);
+  console.log('UserData1:', UserData?.phoneNo);
 
   return (
+    <>
+    <Navbar/>
     <div className="profile-container">
       <h2 className="profile-title">User Profile</h2>
       <ul className="profile-list">
@@ -19,7 +23,8 @@ const ShowProfile = () => {
         <li><strong>Facebook:</strong> <a href={UserData?.facebook} target="_blank" rel="noopener noreferrer">{UserData?.facebook || 'N/A'}</a></li>
         <li><strong>Twitter:</strong> <a href={UserData?.twitter} target="_blank" rel="noopener noreferrer">{UserData?.twitter || 'N/A'}</a></li>
       </ul>
-    </div>
+      </div>
+      </>
   );
 }
 

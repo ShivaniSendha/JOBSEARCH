@@ -26,10 +26,7 @@ const UserLogin = () => {
     navigate('/');
   };
 
-  const handleClose = () => {
-    navigate('/');
-  };
-
+ 
   const collectData = async (e) => {
     e.preventDefault();
 

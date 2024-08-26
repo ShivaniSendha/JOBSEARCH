@@ -4,7 +4,6 @@ import logo from '../../assets/softude.png';
 import { useNavigate } from 'react-router-dom';
 import { FaLongArrowAltRight } from "react-icons/fa";
 import '../Navbar/Navbar.css';
-import { useAuth } from '../Context/AuthContext';
 import { IoIosContact } from "react-icons/io";
 import Swal from 'sweetalert2'
 const Navbar = () => {
@@ -13,24 +12,13 @@ const Navbar = () => {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     setUserData(user);
-    console.log("hiiiiiiiia",user.name);
+    console.log("hiiiiiiiiaii",user);
     
   }, []);
+  const userName = userData?.name || userData?.user?.name;
 
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const updatedUser = JSON.parse(localStorage.getItem('user'));
-      setUserData(updatedUser);
-    
-      
-    };
 
-    window.addEventListener('storage', handleStorageChange);
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []);
+  
   const navigate = useNavigate();
 
   const [scrolled, setScrolled] = useState(false);
@@ -41,11 +29,7 @@ const Navbar = () => {
   }
   
   
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    setUserData(user);
-    console.log("fhjdshfjdsfj",user);
-  }, []);
+
   const handleClickProfileUpdate = () => {
     navigate('/profileupdate');
   };
@@ -154,13 +138,13 @@ const Navbar = () => {
             {userData ? (
               <div className="dropdownP ms-3"  >
                 <button className="btn btn-primary profile" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {userData?.name[0].toUpperCase()}
+                {userName ? userName[0].toUpperCase() : 'U'}
                 </button>
                 <ul className="dropdown-menuP">
                   <div className='Profilelogo'>
                     <IoIosContact size={80} color='blue' className='Profilelogo1' />
 
-                    <p className='fw-bold'>{userData?.name.toUpperCase()}</p>
+                    <p className='fw-bold'>      {userName ? userName.toUpperCase() : 'U'}</p>
                   </div>
                   <li>
                     <a
@@ -180,7 +164,7 @@ const Navbar = () => {
                       href="#"
                       onClick={handleClickProfileUpdate}
                     >
-                      Show Profile
+                      Update Profile
                     </a>
                   </li>
                 </ul>

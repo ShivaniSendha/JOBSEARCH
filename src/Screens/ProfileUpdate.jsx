@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import logo from '../assets/carousel1.jpg';
 import shivani from '../assets/shivani.png';
@@ -7,6 +8,7 @@ import { FaEye, FaEyeSlash, FaLongArrowAltRight } from 'react-icons/fa';
 import '../Screens/ProfileUpdate.css';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
+import Navbar from '../Component/Navbar/Navbar';
 
 const ProfileUpdate = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,9 +17,7 @@ const ProfileUpdate = () => {
   const HomeClick = () => {
     navigate('/');
   };
-  const showProfile = () => {
-    navigate('/showprofile');
-  };
+
   const handleSweetAlertProfileUpdate = () => {
     Swal.fire('Success!', 'Profile Updated Successfully', 'success');
   };
@@ -27,9 +27,10 @@ const ProfileUpdate = () => {
   };
 
   const UserData = JSON.parse(localStorage.getItem('user'));
-  console.log('hdsjdsjhd32',UserData);
-  
-  
+  const userID = UserData?._id || UserData?.user?.id;
+  const userName = UserData?.name || UserData?.user?.name;
+  const userEmail = UserData?.email || UserData?.user?.email;
+
   const [profileData, setProfileData] = useState({
     name: '',
     email: '',
@@ -51,9 +52,17 @@ const ProfileUpdate = () => {
     });
   };
 
+  const validateEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.endsWith('@gmail.com');
+  };
+
+  const validatePassword = (password) => {
+    return /^\d{5,}$/.test(password);
+  };
+
   const collectData = async (e) => {
     e.preventDefault();
-  
+
     const {
       name,
       email,
@@ -64,50 +73,124 @@ const ProfileUpdate = () => {
       language,
       dob,
       facebook,
-      twitter
+      twitter,
     } = profileData;
-  
+
+    toast.dismiss();
+
+    if (!name) {
+      toast.error('Please enter your name.');
+      return;
+    }
+
+    if (!email) {
+      toast.error('Please enter your email.');
+      return;
+    }
+
+    if (!password) {
+      toast.error('Please enter your password.');
+      return;
+    }
+    if (!phoneNo) {
+      toast.error('Please enter your Phone Number.');
+      return;
+    }
+    if (phoneNo.length < 10) {
+      toast.error('Phone number must be at least 10 digits long.');
+      return false;
+    }
+    if (!address) {
+      toast.error('Please enter your Address.');
+      return;
+    }
+    if (!gender) {
+      toast.error('Fill the Gender field');
+      return;
+    }
+    if (!language) {
+      toast.error('Please enter your language.');
+      return;
+    }
+    if (!dob) {
+      toast.error('Please enter your date of birth.');
+      return;
+    }
+    if (!facebook) {
+      toast.error('Please enter your facebook link.');
+      return;
+    }
+    if (!twitter) {
+      toast.error('Please enter your Twitter link.');
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      toast.error('Please enter a valid Gmail address.');
+      return;
+    }
+
+    if (!validatePassword(password)) {
+      toast.error('Password must be at least 5 digits long and contain only digits.');
+      return;
+    }
+
     try {
-      const userId = UserData?._id; // Assuming you have the user ID stored in localStorage
-  console.log("gjkhfdkghfk",userId);
-  
-      const response = await fetch(`http://localhost:8000/api/updateProfile/${userId}`, {
+      const updatedProfileData = {
+        name: name || 'N/A',
+        email: email || 'N/A',
+        password: password || 'N/A',
+        phoneNo: phoneNo || 'N/A',
+        address: address || 'N/A',
+        gender: gender || 'N/A',
+        language: language || 'N/A',
+        dob: dob || 'N/A',
+        facebook: facebook || 'N/A',
+        twitter: twitter || 'N/A',
+      };
+
+      const response = await fetch(`http://localhost:8000/api/updateProfile/${userID}`, {
         method: 'PUT',
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          phoneNo,
-          address,
-          gender,
-          language,
-          dob,
-          facebook,
-          twitter
-        }),
+        body: JSON.stringify(updatedProfileData),
         headers: {
           'Content-Type': 'application/json',
         },
       });
-  
+
       if (!response.ok) {
         throw new Error('Network response was not ok.');
       }
-  
+
       const result = await response.json();
-      localStorage.setItem('user', JSON.stringify(result)); // Update local storage with the updated user data
-  
+
+      const updatedUserData = {
+        ...UserData,
+        name: result.name,
+        email: result.email,
+        password: result.password,
+        phoneNo: result.phoneNo,
+        address: result.address,
+        gender: result.gender,
+        language: result.language,
+        dob: result.dob,
+        facebook: result.facebook,
+        twitter: result.twitter,
+      };
+
+      localStorage.setItem('user', JSON.stringify(updatedUserData));
+
       navigate('/showprofile');
-  
+
       handleSweetAlertProfileUpdate();
     } catch (error) {
       console.error('There was a problem with the profile update:', error);
       toast.error('Profile update failed. Please try again.');
     }
   };
-  
+
   return (
     <>
+      <Navbar />
       <div className="hero-container">
         <img src={logo} className="hero-image" alt="img" />
         <div className="hero-text">
@@ -123,7 +206,6 @@ const ProfileUpdate = () => {
 
       <div className="container my-5">
         <div className="row">
-          {/* Left Column - Photo */}
           <div className="col-md-4 d-flex justify-content-center align-items-center mb-4 mb-md-0">
             <div className="text-center border border-3 rounded rounded-2">
               <img
@@ -133,14 +215,12 @@ const ProfileUpdate = () => {
               />
               <FaLongArrowAltRight />
               <span className="bg-primary p-2 rounded mb-3">
-                {UserData?.name}
+                {userName ? userName.toUpperCase() : 'U'}
               </span>
-              <p className="text-muted mt-2">  {UserData?.email}</p>
-              {/* You can add an upload button here if needed */}
+              <p className="text-muted mt-2">{userEmail ? userEmail : 'U'}</p>
             </div>
           </div>
 
-          {/* Right Column - Form */}
           <div className="col-md-8">
             <div className="card shadow-sm">
               <div className="card-header bg-secondary text-white">
@@ -159,6 +239,7 @@ const ProfileUpdate = () => {
                       name="name"
                       value={profileData.name}
                       onChange={handleChange}
+                       placeholder="Enter your name"
                     />
                   </div>
 
@@ -173,7 +254,7 @@ const ProfileUpdate = () => {
                       name="email"
                       value={profileData.email}
                       onChange={handleChange}
-                  
+                       placeholder="Enter your email"
                     />
                   </div>
 
@@ -267,6 +348,8 @@ const ProfileUpdate = () => {
                       <option value="French">French</option>
                     </select>
                   </div>
+
+                 
 
                   <div className="mb-3">
                     <label htmlFor="dob" className="form-label">
