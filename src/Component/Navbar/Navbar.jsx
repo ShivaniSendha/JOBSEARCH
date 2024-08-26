@@ -8,11 +8,34 @@ import { useAuth } from '../Context/AuthContext';
 import { IoIosContact } from "react-icons/io";
 import Swal from 'sweetalert2'
 const Navbar = () => {
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    setUserData(user);
+    console.log("hiiiiiiiia",user.name);
+    
+  }, []);
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const updatedUser = JSON.parse(localStorage.getItem('user'));
+      setUserData(updatedUser);
+    
+      
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
   const navigate = useNavigate();
-  const { user } = useAuth();
+
   const [scrolled, setScrolled] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
-  const [userData, setUserData] = useState('');
+ 
   const handleSweetAlertLogout = () => {
     Swal.fire('Success!', 'Logout Successfully Done', 'success')
   }
@@ -21,10 +44,12 @@ const Navbar = () => {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     setUserData(user);
+    console.log("fhjdshfjdsfj",user);
   }, []);
   const handleClickProfileUpdate = () => {
     navigate('/profileupdate');
   };
+
 
   const handleLogout = () => {
     localStorage.removeItem('user');
@@ -127,15 +152,15 @@ const Navbar = () => {
               </li>
             </ul>
             {userData ? (
-              <div className="dropdownP ms-3">
+              <div className="dropdownP ms-3"  >
                 <button className="btn btn-primary profile" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  {userData?.user?.name[0].toUpperCase()}
+                {userData?.name[0].toUpperCase()}
                 </button>
                 <ul className="dropdown-menuP">
                   <div className='Profilelogo'>
                     <IoIosContact size={80} color='blue' className='Profilelogo1' />
 
-                    <p className='fw-bold'>{userData?.user?.name.toUpperCase()}</p>
+                    <p className='fw-bold'>{userData?.name.toUpperCase()}</p>
                   </div>
                   <li>
                     <a

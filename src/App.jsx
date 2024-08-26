@@ -14,6 +14,7 @@ import JobDetails from './Component/Job/JobDetails.jsx';
 import { AuthProvider } from './Component/Context/AuthContext.jsx'; // Import AuthProvider
 
 import ProfileUpdate from './Screens/ProfileUpdate.jsx';
+import ShowProfile from './Screens/ShowProfile.jsx';
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/createJob" element={<AddJob />} />
           <Route path="/profileupdate" element={<ProfileUpdate />} />
-          
+          <Route path="/showprofile" element={<ShowProfile />} />
           <Route path="/jobdetails" element={<LatestJob />} />
           <Route path='/userlogin' element={<UserLogin />} />
           <Route path='/jobsdetails' element={<JobDetails />} />

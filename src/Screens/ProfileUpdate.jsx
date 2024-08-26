@@ -1,55 +1,125 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import logo from '../assets/carousel1.jpg'
-import shivani from '../assets/shivani.png'
+import logo from '../assets/carousel1.jpg';
+import shivani from '../assets/shivani.png';
 import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash, FaLongArrowAltRight } from 'react-icons/fa';
-import '../Screens/ProfileUpdate.css'
+import '../Screens/ProfileUpdate.css';
+import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
+
 const ProfileUpdate = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+
   const HomeClick = () => {
-    navigate('/')
-  }
+    navigate('/');
+  };
+  const showProfile = () => {
+    navigate('/showprofile');
+  };
+  const handleSweetAlertProfileUpdate = () => {
+    Swal.fire('Success!', 'Profile Updated Successfully', 'success');
+  };
+
   const tglPasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  const UserData = JSON.parse(localStorage.getItem('user'))
+
+  const UserData = JSON.parse(localStorage.getItem('user'));
+  console.log('hdsjdsjhd32',UserData);
+  
+  
   const [profileData, setProfileData] = useState({
-    firstName: '',
-    email: UserData?.user?.email,
+    name: '',
+    email: '',
     password: '',
     phoneNo: '',
     address: '',
     gender: '',
-    languagae: '',
+    language: '',
     dob: '',
     facebook: '',
-    twitter: ' ',
-
+    twitter: '',
   });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProfileData({
       ...profileData,
-      [name]: value
+      [name]: value,
     });
   };
 
-
+  const collectData = async (e) => {
+    e.preventDefault();
+  
+    const {
+      name,
+      email,
+      password,
+      phoneNo,
+      address,
+      gender,
+      language,
+      dob,
+      facebook,
+      twitter
+    } = profileData;
+  
+    try {
+      const userId = UserData?._id; // Assuming you have the user ID stored in localStorage
+  console.log("gjkhfdkghfk",userId);
+  
+      const response = await fetch(`http://localhost:8000/api/updateProfile/${userId}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          phoneNo,
+          address,
+          gender,
+          language,
+          dob,
+          facebook,
+          twitter
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok.');
+      }
+  
+      const result = await response.json();
+      localStorage.setItem('user', JSON.stringify(result)); // Update local storage with the updated user data
+  
+      navigate('/showprofile');
+  
+      handleSweetAlertProfileUpdate();
+    } catch (error) {
+      console.error('There was a problem with the profile update:', error);
+      toast.error('Profile update failed. Please try again.');
+    }
+  };
+  
   return (
     <>
       <div className="hero-container">
         <img src={logo} className="hero-image" alt="img" />
         <div className="hero-text">
           <h1>Profile Setting</h1>
-          <div className='flex align-items-center m-3'>
-            <span onClick={HomeClick} className="Home btn btn-outline-success ">Home</span> <span className="">&gt;&gt; Profile  </span>
+          <div className="flex align-items-center m-3">
+            <span onClick={HomeClick} className="Home btn btn-outline-success">
+              Home
+            </span>
+            <span className="">&gt;&gt; Profile</span>
           </div>
         </div>
       </div>
-
-
 
       <div className="container my-5">
         <div className="row">
@@ -62,8 +132,10 @@ const ProfileUpdate = () => {
                 className="img-fluid rounded-circle mb-3"
               />
               <FaLongArrowAltRight />
-              <span className='bg-primary  p-2 rounded mb-3  '>{UserData?.user?.name}</span>
-              <p className="text-muted mt-2">{profileData.email}</p>
+              <span className="bg-primary p-2 rounded mb-3">
+                {UserData?.name}
+              </span>
+              <p className="text-muted mt-2">  {UserData?.email}</p>
               {/* You can add an upload button here if needed */}
             </div>
           </div>
@@ -71,23 +143,22 @@ const ProfileUpdate = () => {
           {/* Right Column - Form */}
           <div className="col-md-8">
             <div className="card shadow-sm">
-              <div className="card-header bg-secondary  text-white">
+              <div className="card-header bg-secondary text-white">
                 <h4 className="mb-0 p-2">General Information</h4>
               </div>
               <div className="card-body">
-                <form>
+                <form onSubmit={collectData}>
                   <div className="mb-3">
-                    <label htmlFor="firstName" className="form-label">
+                    <label htmlFor="name" className="form-label">
                       First Name:
                     </label>
                     <input
                       type="text"
                       className="form-control"
-                      id="firstName"
-                      name="firstName"
-                      value={profileData.firstName}
+                      id="name"
+                      name="name"
+                      value={profileData.name}
                       onChange={handleChange}
-                   
                     />
                   </div>
 
@@ -102,7 +173,7 @@ const ProfileUpdate = () => {
                       name="email"
                       value={profileData.email}
                       onChange={handleChange}
-                      readOnly
+                  
                     />
                   </div>
 
@@ -194,7 +265,6 @@ const ProfileUpdate = () => {
                       <option value="Hindi">Hindi</option>
                       <option value="Spanish">Spanish</option>
                       <option value="French">French</option>
-                      {/* Add more languages as needed */}
                     </select>
                   </div>
 
@@ -242,7 +312,8 @@ const ProfileUpdate = () => {
                     />
                   </div>
 
-                  <button type="submit" className="btn btn-primary">
+                  <button
+                   onClick={collectData} type="submit" className="btn btn-primary">
                     Update Profile
                   </button>
                 </form>
