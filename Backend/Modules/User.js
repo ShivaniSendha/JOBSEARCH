@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true
+  
   },
   password: {
     type: String,
@@ -50,6 +50,6 @@ const userSchema = new mongoose.Schema({
   
 });
 
-const Signup = mongoose.model('Signupdata', userSchema); // Changed 'details' to 'User'
+const Signup = mongoose.model('Signupdata', userSchema); 
 
 module.exports = Signup;

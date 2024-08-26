@@ -5,9 +5,12 @@ const Signup = require("../Modules/User.js"); // Ensure this model is compatible
 const Registration = async (req, res) => {
   try {
     const user = await Signup.create(req.body);
+    if (user) {
+      res.status(400).json({ message: 'User Already Exist', error: err.message });
+    }
     res.status(201).json(user);
   } catch (err) {
-    console.error('Error during registration:', err);
+   
     res.status(400).json({ message: 'Registration Failed', error: err.message });
   }
 };

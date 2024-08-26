@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
-const updateProfileRoute=require('../Routes/user.routes.js')
+const updateProfileRoute = require('../Routes/user.routes.js');
+const ApplyJOb = require('../Routes/ApplyJob.route.js');
 const express = require('express');
 const cors = require('cors');
 require('../db/connection'); // Ensure this path is correct
@@ -24,13 +25,14 @@ app.use('/UserRegistration', UserRouter);
 
 // Job-related routes
 app.use('/Addnewjob', AddJobRouter);
+app.use('/ApplyJob', ApplyJOb);
 // ====================================
 // ====================================
 // ====================================
 
 
 
-// Adjust the path as necessary
+
 
 app.use('/api', updateProfileRoute); // Use the correct base path
 
