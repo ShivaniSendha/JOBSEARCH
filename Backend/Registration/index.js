@@ -6,7 +6,7 @@ const cors = require('cors');
 require('../db/connection'); // Ensure this path is correct
 const UserRouter = require('../Routes/user.routes.js');
 const AddJobRouter = require('../Routes/AddJob.routes.js');
-
+const ProfileCRUD =require('../Routes/user.routes.js')
 const app = express();
 const port = 8000;
 
@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 
 // User-related routes
 app.use('/UserLogin', UserRouter);
-app.use('/UserRegistration', UserRouter);
+
 
 // Job-related routes
 app.use('/Addnewjob', AddJobRouter);
@@ -30,7 +30,7 @@ app.use('/ApplyJob', ApplyJOb);
 // ====================================
 // ====================================
 
-
+// app.use('/profileCRUD', ProfileCRUD);
 
 
 

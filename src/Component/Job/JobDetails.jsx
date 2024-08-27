@@ -24,10 +24,10 @@ const JobDetails = (item) => {
   const { state } = useLocation();
   const job = state?.job;
 
-  // Check for existence of status field
+ 
   console.log('Job Status:', job?.status);
   const HomeClick = () => {
-    navigate('/');
+    navigate('/home');
   };
 
   const OpeningHours = {
@@ -49,11 +49,11 @@ const JobDetails = (item) => {
        
         Swal.fire({
           icon: "info",
-          title: "Oops...",
-          text: "Something went wrong! Firsty You Have Sign up & Login",
+      
+          text: "Firsty You Have Sign up & Login",
         
         });
-        navigate('/registration');
+      
       }, 500); 
     }
     else{
@@ -75,7 +75,7 @@ const JobDetails = (item) => {
           text: "Apply Succesfully",
         
         });
-        navigate('/')
+        navigate('/home')
       } else {
         toast.error(data.message || 'Failed to apply');
       }

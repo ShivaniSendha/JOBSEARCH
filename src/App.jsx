@@ -14,7 +14,7 @@ import JobDetails from './Component/Job/JobDetails.jsx';
 import ProfileUpdate from '../src/Screens/ProfileUpdate.jsx';
 import ShowProfile from './Screens/ShowProfile.jsx';
 import SplashScreen from './Component/SplashScreen.jsx';
-import JobApplicationForm from './Component/Job/JobApplicatuinForm.jsx';
+
 
 
 const SplashScreenWithRedirect = () => {
@@ -43,7 +43,7 @@ function App() {
         <Route path="/profileupdate" element={<ProfileUpdate />} />
         <Route path="/showprofile" element={<ShowProfile />} />
         <Route path="/jobdetails" element={<LatestJob />} />
-        <Route path="/jobapplication" element={<JobApplicationForm />} />
+      
         <Route path='/userlogin' element={<UserLogin />} />
         <Route path='/jobsdetails' element={<JobDetails />} />
         <Route path="/registration" element={<Registration />} />

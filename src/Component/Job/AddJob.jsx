@@ -14,6 +14,12 @@ const AddJob = () => {
   const HomeClick = () => {
     navigate('/home')
   }
+  const handleSweetAlertJobCreate = () => {
+    Swal.fire('Success!', 'Job Created Successfully', 'success');
+  };
+  const handleSweetAlertJobCreatedFailed = () => {
+    Swal.fire('Erroe!', 'Job Created Failed ,Please try agai..', 'error');
+  }
   const [jobData, setJobData] = useState({
     companyName: '',
     category: '',
@@ -164,11 +170,11 @@ const AddJob = () => {
         localStorage.setItem('users', JSON.stringify(result));
 
         // Navigate to login page
-        navigate('/');
-        toast.success('Job Created Successful');
+        navigate('/home');
+        handleSweetAlertJobCreate();
       } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
-        toast.error('JOb Created failed. Please try again.');
+        handleSweetAlertJobCreatedFailed();
       }
 
     }

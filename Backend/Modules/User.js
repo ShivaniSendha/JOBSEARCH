@@ -1,15 +1,11 @@
 /* eslint-disable no-undef */
 const mongoose = require('mongoose');
-
+const bcryptjs =require('bcryptjs')
 const userSchema = new mongoose.Schema({
-  userId:{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'user',
-    required: true
-},
+
   name: {
     type: String,
-    required: true
+   
   },
   email: {
     type: String,
@@ -18,43 +14,45 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true
+    
+
   },
   phoneNo: {
     type: String,
-    required: true
+
   },
   address: {
     type: String,
-    required: true,
+    
   
   },
   gender: {
     type: String,
-    required: true
+   
   }
   ,
   language: {
     type: String,
-    required: true
   },
   dob: {
     type: String,
-    required: true,
-  
+   
   },
   facebook: {
     type: String,
-    required: true
+   
   },
   twitter: {
     type: String,
-    required: true
+  
   }
   
   
 });
-
+// userSchema.pre("save", async function () {
+//   const salt = await bcrypt.genSalt(10);
+//   this.password=await bcryptjs.hash(this.password,salt)
+// })
 const Signup = mongoose.model('Signupdata', userSchema); 
 
 module.exports = Signup;

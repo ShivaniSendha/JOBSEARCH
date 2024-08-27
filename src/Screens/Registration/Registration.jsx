@@ -35,68 +35,64 @@ const Registration = () => {
   const validatePassword = (password) => {
     return /^\d{6,}$/.test(password);
   };
-  
+
 
   const collectData = async (e) => {
     e.preventDefault();
-  
+
     toast.dismiss();
-  
+
     if (!name) {
       toast.error('Please enter your name.');
       return;
     }
-  
+
     if (!email) {
       toast.error('Please enter your email.');
       return;
     }
-  
+
     if (!password) {
       toast.error('Please enter your password.');
       return;
     }
-  
+
     if (!validateEmail(email)) {
       toast.error('Please enter a valid Gmail address.');
       return;
     }
-  
+
     if (!validatePassword(password)) {
       toast.error('Password must be at least 5 digits long and contain only digits.');
       return;
     }
-  
+
     try {
-      const response = await fetch('http://localhost:8000/UserRegistration', {
+      const response = await fetch('http://localhost:8000/api/UserRegistration', {
         method: 'POST',
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ name, email, password, phoneNo: '', address: '', gender: '', language: '', dob: '', facebook: '', twitter: '' }),
         headers: {
           'Content-Type': 'application/json',
         },
       });
-  
+
       // Check if the response is JSON
-      const contentType = response.headers.get('content-type');
-      if (contentType && contentType.includes('application/json')) {
-        const result = await response.json();
-  
-        if (!response.ok) {
-          throw new Error(result.error || 'Registration failed. Please try again.');
-        }
-  
-        localStorage.setItem('users', JSON.stringify(result));
-        navigate('/userlogin');
-        handleSweetAlertSIgnup();
-      } else {
-        throw new Error('Unexpected response format');
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Registration failed. Please try again.');
       }
+
+      localStorage.setItem('users', JSON.stringify(result));
+      navigate('/userlogin');
+      handleSweetAlertSIgnup();
+
     } catch (error) {
-      console.error('There was a problem with the fetch operation:', error);
+
       toast.error(`Registration failed: ${error.message}`);
     }
   };
-  
+
   return (
     <>
       <Navbar />
@@ -153,7 +149,7 @@ const Registration = () => {
         </div>
       </form>
       <ToastContainer />
-   
+
     </>
   );
 };

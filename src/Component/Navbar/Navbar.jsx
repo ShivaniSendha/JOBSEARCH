@@ -85,10 +85,10 @@ const Navbar = () => {
         <img className="navbar-brand" src={logo} alt="Logo" style={{ width: '10%', height: '50px', borderRadius: '5px' }} />
         <button
           className="navbar-toggler"
-          type="button"
+          type="button "
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
+          aria-controls="navbarSupportedContent "
           aria-expanded="false"
           aria-label="Toggle navigation"
         >

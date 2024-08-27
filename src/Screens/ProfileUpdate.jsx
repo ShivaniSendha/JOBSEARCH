@@ -16,15 +16,39 @@ import { BiDetail } from 'react-icons/bi';
 import { MdDeleteForever } from 'react-icons/md';
 
 const ProfileUpdate = () => {
+  const [userData, setUserData] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const handleRemovelocalData = () => {
+    localStorage.removeItem('user');
+    setUserData(null);
+    navigate('/home');
+  };
 
   const HomeClick = () => {
     navigate('/home');
   };
+  const showuserDetail = () => {
+    navigate('/showprofile')
+  }
+  const handleClickJobdetails = () => {
+  
+    navigate('/profileupdate');
+
+
+    setTimeout(() => {
+      const section = document.getElementById('top-jobs');
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 500);
+  };
 
   const handleSweetAlertProfileUpdate = () => {
     Swal.fire('Success!', 'Profile Updated Successfully', 'success');
+  };
+  const handleSweetAlertProfiledelete = () => {
+    Swal.fire('Success!', 'Account deleted Successfully', 'success');
   };
 
   const tglPasswordVisibility = () => {
@@ -35,10 +59,10 @@ const ProfileUpdate = () => {
   const userID = UserData?._id || UserData?.user?.id;
   const userName = UserData?.name || UserData?.user?.name;
   const userEmail = UserData?.email || UserData?.user?.email;
-console.log("dsdjkfjdsfdjsf",userID)
+console.log("dsdjkfjdsfdjsf",userEmail)
   const [profileData, setProfileData] = useState({
     name: '',
-    email: '',
+    email: userEmail,
     password: '',
     phoneNo: '',
     address: '',
@@ -57,9 +81,7 @@ console.log("dsdjkfjdsfdjsf",userID)
     });
   };
 
-  const validateEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.endsWith('@gmail.com');
-  };
+ 
 
   const validatePassword = (password) => {
     return /^\d{5,}$/.test(password);
@@ -85,11 +107,6 @@ console.log("dsdjkfjdsfdjsf",userID)
 
     if (!name) {
       toast.error('Please enter your name.');
-      return;
-    }
-
-    if (!email) {
-      toast.error('Please enter your email.');
       return;
     }
 
@@ -130,11 +147,6 @@ console.log("dsdjkfjdsfdjsf",userID)
       return;
     }
 
-    if (!validateEmail(email)) {
-      toast.error('Please enter a valid Gmail address.');
-      return;
-    }
-
     if (!validatePassword(password)) {
       toast.error('Password must be at least 5 digits long and contain only digits.');
       return;
@@ -171,7 +183,7 @@ console.log("dsdjkfjdsfdjsf",userID)
       const updatedUserData = {
         ...UserData,
         name: result.name,
-        email: result.email,
+        
         password: result.password,
         phoneNo: result.phoneNo,
         address: result.address,
@@ -193,35 +205,35 @@ console.log("dsdjkfjdsfdjsf",userID)
     }
   };
   const DeleteAccount = async () => {
-    try {
-   
-  
-      // Perform the GET request
-      const response = await fetch(`http://localhost:8000/UserRegistration/GetUsersDelete/${userID}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-  
-      if (!response.ok) {
-        throw new Error('Network response was not ok.');
-      }
-  
-      // Handle the result if needed
-      const result = await response.json();
-  
-      // Navigate to a different page after successful deletion
-      navigate('/showprofile');
-  
-      // Optional: Show a success alert or toast
-      handleSweetAlertProfileUpdate();
-    } catch (error) {
-     
-      toast.error('Account deletion failed. Please try again.');
+  console.log("user id is ",userID)
+  try {
+    const response = await fetch(`http://localhost:8000/api/UsersDelete/${userID}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    console.log('====================================');
+    console.log('response', response);
+    console.log('====================================');
+
+    const result = await response.json(); // Inspect the result object
+
+    if (!response.ok) {
+      console.error('Response:', result); // Log the response details
+      throw new Error('Network response was not ok.');
     }
-  };
-  
+
+    navigate('/');
+    handleRemovelocalData();
+    handleSweetAlertProfiledelete();
+  } catch (error) {
+    console.error('Error deleting account:', error);
+    toast.error('Account deletion failed. Please try again.');
+  }
+};
+
   
   return (
     <>
@@ -255,11 +267,11 @@ console.log("dsdjkfjdsfdjsf",userID)
 
             <div className='options'>
             <CiEdit size={30} color='white' />
-            <button className=' border-0   btnoption '>Edit profile</button>
+            <button onClick={handleClickJobdetails} className=' border-0   btnoption '>Edit profile</button>
             </div>
             <div className='options'>
             <BiDetail size={30} color='white' />
-            <button  className='  border-0 btnoption'>Show Details</button>
+            <button onClick={showuserDetail}  className='  border-0 btnoption'>Show Details</button>
             </div>
          <div className='options '>
          <MdDeleteForever size={30} color='red'  />
@@ -302,8 +314,10 @@ console.log("dsdjkfjdsfdjsf",userID)
                       name="email"
                       value={profileData.email}
                       onChange={handleChange}
-                       placeholder="Enter your email"
+                      placeholder="Enter your email"
+                      readOnly
                     />
+
                   </div>
 
                   <div className="mb-3">

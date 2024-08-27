@@ -2,9 +2,16 @@
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #f9f9f9;
+
+    text-align: start;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: rgb(34,193,195);
+    background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(121,175,137,1) 50%);
   }
   
   .profile-title {
@@ -56,4 +63,7 @@
       font-size: 12px;
     }
   }
-  
+  .contacticn{
+ 
+
+  }
