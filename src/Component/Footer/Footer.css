@@ -1,5 +1,6 @@
 #footers {
-  background: linear-gradient(45deg, rgb(186, 239, 193), rgb(186, 237, 186)); 
+  background: rgb(34,193,195);
+  background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(121,175,137,1) 50%);
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   color: white; 

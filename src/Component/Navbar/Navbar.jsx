@@ -1,54 +1,47 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import logo from '../../assets/softude.png';
 import { useNavigate } from 'react-router-dom';
 import { FaLongArrowAltRight } from "react-icons/fa";
 import '../Navbar/Navbar.css';
 import { IoIosContact } from "react-icons/io";
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+
 const Navbar = () => {
   const [userData, setUserData] = useState(null);
+  const navigate = useNavigate();
+  const [scrolled, setScrolled] = useState(false);
+  const [activeItem, setActiveItem] = useState(null);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     setUserData(user);
-    console.log("hiiiiiiiiaii",user);
-    
+    console.log("hiiiiiiiiaii", user);
   }, []);
+
   const userName = userData?.name || userData?.user?.name;
 
-
-  
-  const navigate = useNavigate();
-
-  const [scrolled, setScrolled] = useState(false);
-  const [activeItem, setActiveItem] = useState(null);
- 
   const handleSweetAlertLogout = () => {
-    Swal.fire('Success!', 'Logout Successfully Done', 'success')
+    Swal.fire('Success!', 'Logout Successfully Done', 'success');
   }
-  
-  
 
   const handleClickProfileUpdate = () => {
     navigate('/profileupdate');
   };
 
-
   const handleLogout = () => {
     localStorage.removeItem('user');
     setUserData(null);
     navigate('/userlogin');
-
   };
 
   const handleClickHome = () => {
-    navigate('/');
+    navigate('/home');
     setActiveItem('home');
   };
 
   const handleClickShowJob = () => {
-    navigate('/#top-jobs');
+  
+    navigate('/home');
     setActiveItem('jobdetails');
 
     setTimeout(() => {
@@ -56,7 +49,7 @@ const Navbar = () => {
       if (section) {
         section.scrollIntoView({ behavior: 'smooth' });
       }
-    }, 0);
+    }, 500);
   };
 
   const handleClickCreateJob = () => {
@@ -109,12 +102,28 @@ const Navbar = () => {
                   Home
                 </button>
               </li>
+
               <li className="nav-item dropdown">
                 <button className={`btn btn-outline-success dropdown-toggle ms-2 ${activeItem === 'addJob' || activeItem === 'jobdetails' ? 'active' : ''}`} type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Job
                 </button>
-                <ul className="dropdown-menu">
-                  <li>
+                
+                
+                  <ul className="dropdown-menu">
+                  { userData? 
+                    (
+                      <li>
+                      <a
+                        className={`dropdown-item ${activeItem === 'jobdetails' ? 'active' : ''}`}
+                        href="#"
+                        onClick={handleClickShowJob}
+                      >
+                        Show Job
+                      </a>
+                    </li>
+                  ):(
+                    <>
+                    <li>
                     <a
                       className={`dropdown-item ${activeItem === 'addJob' ? 'active' : ''}`}
                       href="#"
@@ -132,19 +141,24 @@ const Navbar = () => {
                       Show Job
                     </a>
                   </li>
+                  </>
+                  )
+                 }
                 </ul>
+                  
+                
+                
               </li>
             </ul>
             {userData ? (
-              <div className="dropdownP ms-3"  >
+              <div className="dropdownP ms-3">
                 <button className="btn btn-primary profile" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {userName ? userName[0].toUpperCase() : 'U'}
+                  {userName ? userName[0].toUpperCase() : 'U'}
                 </button>
                 <ul className="dropdown-menuP">
                   <div className='Profilelogo'>
                     <IoIosContact size={80} color='blue' className='Profilelogo1' />
-
-                    <p className='fw-bold'>      {userName ? userName.toUpperCase() : 'U'}</p>
+                    <p className='fw-bold'>{userName ? userName.toUpperCase() : 'U'}</p>
                   </div>
                   <li>
                     <a
@@ -172,7 +186,7 @@ const Navbar = () => {
             ) : (
               <>
                 <button className={`btn btn-outline-success ms-2 ${activeItem === 'login' ? 'active' : ''}`} type="button" onClick={handleClickLogin}>
-                  Login <FaLongArrowAltRight />
+                  Login <IoIosContact size={20} color='white' />
                 </button>
                 <button className={`btn btn-outline-success ms-2 ${activeItem === 'registration' ? 'active' : ''}`} type="button"
                  onClick={handleClickSignUp}>

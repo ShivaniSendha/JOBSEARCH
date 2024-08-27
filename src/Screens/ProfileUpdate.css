@@ -33,7 +33,26 @@
   grid-column: span 6;
 }
 
-.job-form {
-  /* Your existing form styling */
+.userlogo{
+  background: rgb(34,193,195);
+  background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(121,175,137,1) 50%);
+}
+.userinfo{
+  background: rgb(34,193,195);
+  background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(121,175,137,1) 50%);
+}
+.options{
+  margin: 10px;
+  width: 240px;
+  background: rgb(34,193,195);
+  background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(121,175,137,1) 50%);
 }
 
+.btnoption{
+  
+background: none;
+}
+.options:hover{
+  margin-left: -5px;
+  transition: margin-left 0.3s ease, color 0.3s ease; 
+}

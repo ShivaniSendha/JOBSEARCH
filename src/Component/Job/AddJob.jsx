@@ -12,7 +12,7 @@ import Footer from '../Footer/Footer';
 const AddJob = () => {
   const navigate = useNavigate();
   const HomeClick = () => {
-    navigate('/')
+    navigate('/home')
   }
   const [jobData, setJobData] = useState({
     companyName: '',
@@ -164,7 +164,7 @@ const AddJob = () => {
         localStorage.setItem('users', JSON.stringify(result));
 
         // Navigate to login page
-        navigate('/userlogin');
+        navigate('/');
         toast.success('Job Created Successful');
       } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
@@ -210,7 +210,7 @@ const AddJob = () => {
               <option value="">Select Category</option>
               <option value="Indore">Software Development</option>
               <option value="Mumbai">Sales and Marketing</option>
-              <option value="Bangalore">Bangalore</option>
+
               <option value="Bangalore">Web Design</option>
               <option value="Bangalore">Project Management</option>
 
@@ -312,10 +312,32 @@ const AddJob = () => {
 
             >
               <option value="">Skills</option>
-              <option value="React Native Developer">React Native Developer</option>
-              <option value="React Js Developer">React Js Developer</option>
-              <option value="MERN Stack Developer">MERN Stack Developer</option>
-              <option value="Web Designer">Web Designer</option>
+              <option value="Digital Marketing Specialist">Digital Marketing Specialist</option>
+              <option value="SEO Specialist">SEO Specialist</option>
+              <option value="Content Marketing Strategist">Content Marketing Strategist</option>
+              <option value="Social Media Manager">Social Media Manager</option>
+              <option value="PPC Specialist">PPC Specialist</option>
+              <option value="Email Marketing Specialist">Email Marketing Specialist</option>
+              <option value="Salesforce Administrator">Salesforce Administrator</option>
+              <option value="Account Manager">Account Manager</option>
+              <option value="Business Development Executive">Business Development Executive</option>
+              <option value="Sales Executive">Sales Executive</option>
+              <option value="Customer Success Manager">Customer Success Manager</option>
+              <option value="Full Stack Developer">Full Stack Developer</option>
+              <option value="Frontend Developer">Frontend Developer</option>
+              <option value="Backend Developer">Backend Developer</option>
+              <option value="Mobile App Developer">Mobile App Developer</option>
+              <option value="Python Developer">Python Developer</option>
+              <option value="Java Developer">Java Developer</option>
+              <option value="PHP Developer">PHP Developer</option>
+              <option value="WordPress Developer">WordPress Developer</option>
+              <option value="DevOps Engineer">DevOps Engineer</option>
+              <option value="Cloud Engineer">Cloud Engineer</option>
+              <option value="AI/ML Engineer">AI/ML Engineer</option>
+              <option value="Data Scientist">Data Scientist</option>
+              <option value="Software Engineer">Software Engineer</option>
+              <option value="UI/UX Designer">UI/UX Designer</option>
+
             </select>
           </div>
           {/* <button type="submit" className="submit-btn">Create Job</button> */}
@@ -437,7 +459,7 @@ const AddJob = () => {
         </form>
       </div>
       <ToastContainer />
-      
+      <Footer/>
     </>
 
   );

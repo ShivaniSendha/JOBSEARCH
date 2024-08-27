@@ -39,6 +39,7 @@ const LatestCards = (item) => {
 
         </div>
       </div>
+     
     </>
   )
 }

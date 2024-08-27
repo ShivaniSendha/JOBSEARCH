@@ -26,14 +26,14 @@ const Registration = () => {
     setShowPassword(!showPassword);
   };
   const HomeClick = () => {
-    navigate('/')
+    navigate('/home')
   }
   const validateEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.endsWith('@gmail.com');
   };
 
   const validatePassword = (password) => {
-    return /^\d{5,}$/.test(password);
+    return /^\d{6,}$/.test(password);
   };
   
 

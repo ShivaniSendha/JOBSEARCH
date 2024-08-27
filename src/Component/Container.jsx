@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const JobDetails = () => {
   const navigate = useNavigate();
   const HomeClick = () => {
-    navigate('/')
+    navigate('/home')
   }
   return (
     <>

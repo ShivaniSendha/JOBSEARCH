@@ -12,15 +12,10 @@ import Footer from '../Component/Footer/Footer';
 
 const Home = () => {
 
-
-
-
-
-
   return (
     <>
-      <Navbar />
-
+ 
+ <Navbar />
       <img className='img1 ' src={logo}
         alt="Your Image Description"></img>
 
@@ -33,7 +28,7 @@ const Home = () => {
 
       <LatestJob />
    
-
+      <Footer/>
 
     </>
   );

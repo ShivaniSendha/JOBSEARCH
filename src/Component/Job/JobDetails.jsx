@@ -12,6 +12,7 @@ import { IoLocationSharp, IoTimeSharp } from 'react-icons/io5';
 import Map from '../Map';
 import Footer from '../Footer/Footer.jsx';
 import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 
 const JobDetails = (item) => {
   const navigate = useNavigate();
@@ -38,8 +39,24 @@ const JobDetails = (item) => {
     Saturday: 'Closed',
     Sunday: 'Closed'
   };
-
+  const UserData = JSON.parse(localStorage.getItem('user'));
+  console.log("yutugjh",UserData)
   const handleApply = async () => {
+    if (!UserData) {
+     
+      
+      setTimeout(() => {
+       
+        Swal.fire({
+          icon: "info",
+          title: "Oops...",
+          text: "Something went wrong! Firsty You Have Sign up & Login",
+        
+        });
+        navigate('/registration');
+      }, 500); 
+    }
+    else{
     try {
       const response = await fetch('http://localhost:8000/ApplyJob/api/jobs/apply', {
         method: 'PATCH',
@@ -52,7 +69,13 @@ const JobDetails = (item) => {
       const data = await response.json();
 
       if (response.ok) {
-        toast.success('Applied successfully');
+        Swal.fire({
+          icon: "success",
+          title: "Success...",
+          text: "Apply Succesfully",
+        
+        });
+        navigate('/')
       } else {
         toast.error(data.message || 'Failed to apply');
       }
@@ -60,7 +83,7 @@ const JobDetails = (item) => {
       console.error('Error:', error);
       toast.error('An error occurred');
     }
-  };
+  };}
 
   return (
     <>
@@ -137,8 +160,8 @@ const JobDetails = (item) => {
                 </div>
 
                 {/* Job Description */}
-                <div className="container-fluid mt-4 rounded job p-4">
-                  <div className="d-flex align-items-center bg-dark rounded">
+                <div className="container-fluid mt-4 rounded job p-4 ">
+                  <div className="d-flex align-items-center bg-dark rounded ">
                     <h1 className="ms-2 text-light fs-4 p-2">Job Description</h1>
                   </div>
                   <p className='text-start'>
@@ -268,7 +291,7 @@ const JobDetails = (item) => {
 
       </div>
 
-
+      <Footer/>
     </>
   );
 };

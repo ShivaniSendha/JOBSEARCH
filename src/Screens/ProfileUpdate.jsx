@@ -9,13 +9,18 @@ import '../Screens/ProfileUpdate.css';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
 import Navbar from '../Component/Navbar/Navbar';
+import Footer from '../Component/Footer/Footer';
+import { IoIosContact } from 'react-icons/io';
+import { CiEdit } from 'react-icons/ci';
+import { BiDetail } from 'react-icons/bi';
+import { MdDeleteForever } from 'react-icons/md';
 
 const ProfileUpdate = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const HomeClick = () => {
-    navigate('/');
+    navigate('/home');
   };
 
   const handleSweetAlertProfileUpdate = () => {
@@ -30,7 +35,7 @@ const ProfileUpdate = () => {
   const userID = UserData?._id || UserData?.user?.id;
   const userName = UserData?.name || UserData?.user?.name;
   const userEmail = UserData?.email || UserData?.user?.email;
-
+console.log("dsdjkfjdsfdjsf",userID)
   const [profileData, setProfileData] = useState({
     name: '',
     email: '',
@@ -187,7 +192,37 @@ const ProfileUpdate = () => {
       toast.error('Profile update failed. Please try again.');
     }
   };
-
+  const DeleteAccount = async () => {
+    try {
+   
+  
+      // Perform the GET request
+      const response = await fetch(`http://localhost:8000/UserRegistration/GetUsersDelete/${userID}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok.');
+      }
+  
+      // Handle the result if needed
+      const result = await response.json();
+  
+      // Navigate to a different page after successful deletion
+      navigate('/showprofile');
+  
+      // Optional: Show a success alert or toast
+      handleSweetAlertProfileUpdate();
+    } catch (error) {
+     
+      toast.error('Account deletion failed. Please try again.');
+    }
+  };
+  
+  
   return (
     <>
       <Navbar />
@@ -206,24 +241,37 @@ const ProfileUpdate = () => {
 
       <div className="container my-5">
         <div className="row">
-          <div className="col-md-4 d-flex justify-content-center align-items-center mb-4 mb-md-0">
-            <div className="text-center border border-3 rounded rounded-2">
-              <img
-                src={shivani}
-                alt="User Profile"
-                className="img-fluid rounded-circle mb-3"
-              />
+          <div className="col-md-4 d-flex justify-content-start align-items-center mb-4 mb-md-0 flex-column text-start  ">
+            <div className=" border border-3 rounded rounded-2 d-flex flex-column  mb-3  p-5 align-items-center userlogo">
+              
+               <IoIosContact size={100} color='blue' className='img-fluid rounded-circle mb-3  ' />
               <FaLongArrowAltRight />
               <span className="bg-primary p-2 rounded mb-3">
                 {userName ? userName.toUpperCase() : 'U'}
               </span>
               <p className="text-muted mt-2">{userEmail ? userEmail : 'U'}</p>
             </div>
+
+
+            <div className='options'>
+            <CiEdit size={30} color='white' />
+            <button className=' border-0   btnoption '>Edit profile</button>
+            </div>
+            <div className='options'>
+            <BiDetail size={30} color='white' />
+            <button  className='  border-0 btnoption'>Show Details</button>
+            </div>
+         <div className='options '>
+         <MdDeleteForever size={30} color='red'  />
+         <button onClick={DeleteAccount}  className=' border-0 btnoption   '>Delete Account</button>
+         </div>
+          
+           
           </div>
 
           <div className="col-md-8">
             <div className="card shadow-sm">
-              <div className="card-header bg-secondary text-white">
+              <div className="card-header bg-secondary text-white userinfo">
                 <h4 className="mb-0 p-2">General Information</h4>
               </div>
               <div className="card-body">
@@ -405,7 +453,7 @@ const ProfileUpdate = () => {
           </div>
         </div>
       </div>
-     
+      <Footer/>
     </>
   )
 }

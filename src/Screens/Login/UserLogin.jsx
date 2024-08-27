@@ -23,7 +23,7 @@ const UserLogin = () => {
   const navigate = useNavigate();
 
   const HomeClick = () => {
-    navigate('/');
+    navigate('/home');
   };
 
  
@@ -75,7 +75,7 @@ const UserLogin = () => {
         localStorage.setItem('user', JSON.stringify(result));
         toast.success('Login Successful');
         handleSweetAlertLogin()
-        navigate('/');
+        navigate('/home');
       } else {
         const errorData = JSON.parse(responseText);
         throw new Error(errorData.message || 'Login failed');
@@ -131,7 +131,7 @@ const UserLogin = () => {
         </div>
       </form>
       <ToastContainer />
-     
+   
     </>
   );
 };
