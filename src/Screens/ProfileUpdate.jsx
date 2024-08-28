@@ -14,6 +14,7 @@ import { IoIosContact } from 'react-icons/io';
 import { CiEdit } from 'react-icons/ci';
 import { BiDetail } from 'react-icons/bi';
 import { MdDeleteForever } from 'react-icons/md';
+import ShowApplyJob from './ShowApplyJob';
 
 const ProfileUpdate = () => {
   const [userData, setUserData] = useState(null);
@@ -81,15 +82,13 @@ console.log("dsdjkfjdsfdjsf",userEmail)
     });
   };
 
- 
-
   const validatePassword = (password) => {
-    return /^\d{5,}$/.test(password);
+    return /^\d{6,}$/.test(password);
   };
 
   const collectData = async (e) => {
     e.preventDefault();
-
+  
     const {
       name,
       email,
@@ -102,57 +101,77 @@ console.log("dsdjkfjdsfdjsf",userEmail)
       facebook,
       twitter,
     } = profileData;
-
+  
     toast.dismiss();
-
+  
     if (!name) {
       toast.error('Please enter your name.');
       return;
     }
-
+  
     if (!password) {
       toast.error('Please enter your password.');
       return;
     }
+  
+    if (!validatePassword(password)) {
+      toast.error('Password must be at least 6 digits long and contain only digits.');
+      return;
+    }
+  
     if (!phoneNo) {
       toast.error('Please enter your Phone Number.');
       return;
     }
+  
     if (phoneNo.length < 10) {
       toast.error('Phone number must be at least 10 digits long.');
-      return false;
+      return;
     }
+  
     if (!address) {
       toast.error('Please enter your Address.');
       return;
     }
+  
     if (!gender) {
       toast.error('Fill the Gender field');
       return;
     }
+  
     if (!language) {
       toast.error('Please enter your language.');
       return;
     }
+  
     if (!dob) {
       toast.error('Please enter your date of birth.');
       return;
     }
+  
     if (!facebook) {
-      toast.error('Please enter your facebook link.');
+      Swal.fire("Info", 'Please enter your Facebook link.', 'info');
       return;
     }
+  
     if (!twitter) {
       toast.error('Please enter your Twitter link.');
       return;
     }
-
-    if (!validatePassword(password)) {
-      toast.error('Password must be at least 5 digits long and contain only digits.');
-      return;
-    }
-
     try {
+      const {
+        name,
+        email,
+        password,
+        phoneNo,
+        address,
+        gender,
+        language,
+        dob,
+        facebook,
+        twitter,
+      } = profileData;
+  
       const updatedProfileData = {
         name: name || 'N/A',
         email: email || 'N/A',
@@ -183,7 +202,6 @@ console.log("dsdjkfjdsfdjsf",userEmail)
       const updatedUserData = {
         ...UserData,
         name: result.name,
-        
         password: result.password,
         phoneNo: result.phoneNo,
         address: result.address,
@@ -197,42 +215,38 @@ console.log("dsdjkfjdsfdjsf",userEmail)
       localStorage.setItem('user', JSON.stringify(updatedUserData));
 
       navigate('/showprofile');
-
       handleSweetAlertProfileUpdate();
     } catch (error) {
-      console.error('There was a problem with the profile update:', error);
+    
       toast.error('Profile update failed. Please try again.');
     }
   };
+
   const DeleteAccount = async () => {
-  console.log("user id is ",userID)
-  try {
-    const response = await fetch(`http://localhost:8000/api/UsersDelete/${userID}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    console.log("user id is ", userID);
+    try {
+      const response = await fetch(`http://localhost:8000/api/UsersDelete/${userID}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-    console.log('====================================');
-    console.log('response', response);
-    console.log('====================================');
+      const result = await response.json();
 
-    const result = await response.json(); // Inspect the result object
+      if (!response.ok) {
+        console.error('Response:', result);
+        throw new Error('Network response was not ok.');
+      }
 
-    if (!response.ok) {
-      console.error('Response:', result); // Log the response details
-      throw new Error('Network response was not ok.');
+      navigate('/');
+      handleRemovelocalData();
+      handleSweetAlertProfiledelete();
+    } catch (error) {
+      console.error('Error deleting account:', error);
+      toast.error('Account deletion failed. Please try again.');
     }
-
-    navigate('/');
-    handleRemovelocalData();
-    handleSweetAlertProfiledelete();
-  } catch (error) {
-    console.error('Error deleting account:', error);
-    toast.error('Account deletion failed. Please try again.');
-  }
-};
+  };
 
   
   return (
@@ -277,9 +291,13 @@ console.log("dsdjkfjdsfdjsf",userEmail)
          <MdDeleteForever size={30} color='red'  />
          <button onClick={DeleteAccount}  className=' border-0 btnoption   '>Delete Account</button>
          </div>
-          
+    
+         <ShowApplyJob/>
+    
+       
            
           </div>
+         
 
           <div className="col-md-8">
             <div className="card shadow-sm">

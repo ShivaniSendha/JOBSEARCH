@@ -5,13 +5,16 @@ import { useNavigate } from 'react-router-dom';
 
 const LatestCards = (item) => {
   const navigate = useNavigate();
-  console.log('item', item);
+  console.log('item123', item);
 
   const [active, setActive] = useState();
 
+  const UserData = JSON.parse(localStorage.getItem('user'));
+  const userstatus = UserData?.status || UserData?.user?.status;
   const JobDetails = () => {
     
     navigate('/jobsdetails', { state: { job: item.jobId } });
+  
   };
   return (
     <>
@@ -34,7 +37,7 @@ const LatestCards = (item) => {
 
           <button onClick={JobDetails} type="button" className="btn btn-outline-dark">Show Details </button>
           {
-            item?.jobId?.status && <p className='text-success mt-3'>Applied</p>
+            item?.jobId.status && <p className='text-success mt-3'>Applied</p>
           }
 
         </div>

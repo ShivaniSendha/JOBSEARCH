@@ -4,11 +4,13 @@
   gap: 20px;
   margin: 20px auto;
   max-width: 1200px;
+  
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
+  
 }
 
 .form-group label {
@@ -35,7 +37,8 @@ textarea {
   padding: 15px;
   font-size: 1.2rem;
   font-weight: bold;
-  background-color: #28a745;
+  background: rgb(34,193,195);
+  background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(121,175,137,1) 50%);
   color: white;
   border: none;
   border-radius: 5px;

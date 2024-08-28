@@ -76,10 +76,25 @@ const AddJobSchema = new mongoose.Schema({
   }
   ,
   
-  status: {
-    type: String,
-
-  }
+ 
+  users: [
+    {
+      userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users'
+      },
+      status: {
+        type: String,
+      },
+      date: {
+        type: String,
+      },
+      time: {
+        type: String
+      }
+    }
+  ]
+ 
 });
 
 

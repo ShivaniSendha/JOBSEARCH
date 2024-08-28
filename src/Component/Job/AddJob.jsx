@@ -12,7 +12,7 @@ import Footer from '../Footer/Footer';
 const AddJob = () => {
   const navigate = useNavigate();
   const HomeClick = () => {
-    navigate('/home')
+    navigate('/')
   }
   const handleSweetAlertJobCreate = () => {
     Swal.fire('Success!', 'Job Created Successfully', 'success');
@@ -353,7 +353,7 @@ const AddJob = () => {
       {/* ===================================== */}
       <div className='container bg-secondary text-light fs-3 fw-bold p-2 mt-4 '>
         Company Address </div>
-      <div className='border border-2 container '>
+      <div className='border border-2 container mb-5 '>
         <form className="job-form " onSubmit={handleSubmit}>
 
           <div className="form-group ">

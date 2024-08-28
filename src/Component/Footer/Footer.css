@@ -11,17 +11,17 @@
 .footer-bottom p {
   margin: 0;
 }
-ul li {
+ ul li {
   list-style-type: none;
   padding: 5px 0;
 }
 
-ul li:hover {
+.footer li:hover {
   margin-left: 5px;
   color: green;
   transition: margin-left 0.3s ease, color 0.3s ease; 
 }
-.footer {
+.footer .footer {
   background-color: #f9f9f9;
   color: #333;
 }

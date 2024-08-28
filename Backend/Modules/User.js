@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 const mongoose = require('mongoose');
-const bcryptjs =require('bcryptjs')
+const bcrypt =require('bcryptjs')
 const userSchema = new mongoose.Schema({
 
   name: {
@@ -49,10 +49,7 @@ const userSchema = new mongoose.Schema({
   
   
 });
-// userSchema.pre("save", async function () {
-//   const salt = await bcrypt.genSalt(10);
-//   this.password=await bcryptjs.hash(this.password,salt)
-// })
-const Signup = mongoose.model('Signupdata', userSchema); 
+
+const Signup = mongoose.model('Users', userSchema); 
 
 module.exports = Signup;

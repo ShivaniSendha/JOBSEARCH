@@ -63,14 +63,14 @@ const Registration = () => {
     }
 
     if (!validatePassword(password)) {
-      toast.error('Password must be at least 5 digits long and contain only digits.');
+      toast.error('Password must be at least 6 digits long and contain only digits.');
       return;
     }
 
     try {
       const response = await fetch('http://localhost:8000/api/UserRegistration', {
         method: 'POST',
-        body: JSON.stringify({ name, email, password, phoneNo: '', address: '', gender: '', language: '', dob: '', facebook: '', twitter: '' }),
+        body: JSON.stringify({ name, email, password }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -145,7 +145,7 @@ const Registration = () => {
               </span>
             </div>
           </div>
-          <button type="submit" className="btn btn-success w-100">Submit</button>
+          <button type="submit" className="btn userbtn1 w-100">Submit</button>
         </div>
       </form>
       <ToastContainer />

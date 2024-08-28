@@ -15,16 +15,27 @@ import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 
 const JobDetails = (item) => {
+  const alreadyApply=()=>{
+    Swal.fire({
+      icon: "warning",
+      text: "Already You Have Applied ",
+
+    });
+  }
   const navigate = useNavigate();
   const JobDetailss = () => {
-    
+
     navigate('/jobsdetails', { state: { job: item.jobId } });
   };
   navigate('/job-details', { state: { job: JobDetailss } });
   const { state } = useLocation();
   const job = state?.job;
 
- 
+  const UserData = JSON.parse(localStorage.getItem('user'));
+  const userID = UserData?._id || UserData?.user?.id;
+  console.log('userID', userID);
+
+
   console.log('Job Status:', job?.status);
   const HomeClick = () => {
     navigate('/home');
@@ -39,51 +50,51 @@ const JobDetails = (item) => {
     Saturday: 'Closed',
     Sunday: 'Closed'
   };
-  const UserData = JSON.parse(localStorage.getItem('user'));
-  console.log("yutugjh",UserData)
+
   const handleApply = async () => {
     if (!UserData) {
-     
-      
+
+
       setTimeout(() => {
-       
+
         Swal.fire({
           icon: "info",
-      
+
           text: "Firsty You Have Sign up & Login",
-        
+
         });
-      
-      }, 500); 
+
+      }, 500);
     }
-    else{
-    try {
-      const response = await fetch('http://localhost:8000/ApplyJob/api/jobs/apply', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ jobId: job._id, status: 'Applied' }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        Swal.fire({
-          icon: "success",
-          title: "Success...",
-          text: "Apply Succesfully",
-        
+    else {
+      try {
+        const response = await fetch('http://localhost:8000/ApplyJob/api/jobs/apply', {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ jobId: job._id, status: 'Applied', userId: userID }),
         });
-        navigate('/home')
-      } else {
-        toast.error(data.message || 'Failed to apply');
+
+        const data = await response.json();
+
+        if (response.ok) {
+          Swal.fire({
+            icon: "success",
+            title: "Success...",
+            text: "Apply Succesfully",
+
+          });
+          navigate('/home')
+        } else {
+          toast.error(data.message || 'Failed to apply');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        toast.error('An error occurred');
       }
-    } catch (error) {
-      console.error('Error:', error);
-      toast.error('An error occurred');
-    }
-  };}
+    };
+  }
 
   return (
     <>
@@ -114,11 +125,12 @@ const JobDetails = (item) => {
                       <p><strong>Company:</strong> {job?.companyName}</p>
                       <p><strong>Address:</strong> {job?.address}</p>
 
-                      {job?.status === 'Applied' ? (
-                        <button disabled={true} className="btn btn-success">Applied</button>
+                      {job?.users?.some(user => user.userId === userID) ? (
+                        <button onClick={alreadyApply} disabled={false} className="btn btn-success">Apply now</button>
                       ) : (
                         <button onClick={handleApply} className="btn btn-primary">Apply Now</button>
                       )}
+
                     </div>
                   )
 
@@ -291,7 +303,7 @@ const JobDetails = (item) => {
 
       </div>
 
-      <Footer/>
+      <Footer />
     </>
   );
 };

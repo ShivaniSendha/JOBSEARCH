@@ -11,7 +11,7 @@ const Footer = () => {
       <div className="container">
         <div className="row">
           <div className="col-md-4 mb-3">
-            <h2 className="text-success">About Us</h2>
+            <h2 className="text-success  fs-4">About Us</h2>
             <p>Lorem Ipsum is simply dummy text of printing and type setting industry. Lorem Ipsum been industry standard dummy text ever since.</p>
             <div className="social-icons d-flex justify-content-center gap-4">
               <FaFacebook className="icon" size={30} />
@@ -21,8 +21,8 @@ const Footer = () => {
             </div>
           </div>
           <div className="col-md-2 mb-3">
-            <h3 className="text-success">Job Categories</h3>
-            <ul className="list-styled">
+            <h3 className="text-success fs-4">Job Categories</h3>
+            <ul className="list-styled footer">
               <li> Work from Home</li>
               <li>Internship Job</li>
               <li>Freelancer Job</li>
@@ -31,8 +31,8 @@ const Footer = () => {
             </ul>
           </div>
           <div className="col-md-2 mb-3">
-            <h3 className="text-success">Job Type</h3>
-            <ul className="list-styled">
+            <h3 className="text-success  fs-4">Job Type</h3>
+            <ul className="list-styled footer">
               <li>Create Account</li>
               <li>Career Counseling</li>
               <li>My Oficiona</li>
@@ -41,8 +41,8 @@ const Footer = () => {
             </ul>
           </div>
           <div className="col-md-2 mb-3">
-            <h3 className="text-success">Resources</h3>
-            <ul className="list-styled">
+            <h3 className="text-success  fs-4">Resources</h3>
+            <ul className="list-styled footer">
               <li>My Account</li>
               <li>Support</li>
               <li>How It Works</li>
@@ -51,8 +51,8 @@ const Footer = () => {
             </ul>
           </div>
           <div className="col-md-2 mb-3">
-            <h3 className="text-success">Quick Links</h3>
-            <ul className="list-styled">
+            <h3 className="text-success  fs-4">Quick Links</h3>
+            <ul className="list-styled footer">
               <li>Jobs Listing</li>
               <li>About Us</li>
               <li>Contact Us</li>
