@@ -1,8 +1,5 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import logo from '../assets/carousel1.jpg';
-import shivani from '../assets/shivani.png';
 import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash, FaLongArrowAltRight } from 'react-icons/fa';
 import '../Screens/ProfileUpdate.css';
@@ -19,7 +16,21 @@ import ShowApplyJob from './ShowApplyJob';
 const ProfileUpdate = () => {
   const [userData, setUserData] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [profileData, setProfileData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    phoneNo: '',
+    address: '',
+    gender: '',
+    language: '',
+    dob: '',
+    facebook: '',
+    twitter: '',
+    profilePic: null, // For the profile picture
+  });
   const navigate = useNavigate();
+
   const handleRemovelocalData = () => {
     localStorage.removeItem('user');
     setUserData(null);
@@ -29,14 +40,13 @@ const ProfileUpdate = () => {
   const HomeClick = () => {
     navigate('/home');
   };
+
   const showuserDetail = () => {
     navigate('/showprofile')
-  }
+  };
+
   const handleClickJobdetails = () => {
-  
     navigate('/profileupdate');
-
-
     setTimeout(() => {
       const section = document.getElementById('top-jobs');
       if (section) {
@@ -48,6 +58,7 @@ const ProfileUpdate = () => {
   const handleSweetAlertProfileUpdate = () => {
     Swal.fire('Success!', 'Profile Updated Successfully', 'success');
   };
+
   const handleSweetAlertProfiledelete = () => {
     Swal.fire('Success!', 'Account deleted Successfully', 'success');
   };
@@ -60,26 +71,13 @@ const ProfileUpdate = () => {
   const userID = UserData?._id || UserData?.user?.id;
   const userName = UserData?.name || UserData?.user?.name;
   const userEmail = UserData?.email || UserData?.user?.email;
-console.log("dsdjkfjdsfdjsf",userEmail)
-  const [profileData, setProfileData] = useState({
-    name: '',
-    email: userEmail,
-    password: '',
-    phoneNo: '',
-    address: '',
-    gender: '',
-    language: '',
-    dob: '',
-    facebook: '',
-    twitter: '',
-  });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProfileData({
-      ...profileData,
-      [name]: value,
-    });
+    const { name, value, files } = e.target;
+    setProfileData(prevState => ({
+      ...prevState,
+      [name]: files ? files[0] : value,
+    }));
   };
 
   const validatePassword = (password) => {
@@ -100,6 +98,7 @@ console.log("dsdjkfjdsfdjsf",userEmail)
       dob,
       facebook,
       twitter,
+      profilePic,
     } = profileData;
   
     toast.dismiss();
@@ -158,39 +157,25 @@ console.log("dsdjkfjdsfdjsf",userEmail)
       toast.error('Please enter your Twitter link.');
       return;
     }
-    try {
-      const {
-        name,
-        email,
-        password,
-        phoneNo,
-        address,
-        gender,
-        language,
-        dob,
-        facebook,
-        twitter,
-      } = profileData;
-  
-      const updatedProfileData = {
-        name: name || 'N/A',
-        email: email || 'N/A',
-        password: password || 'N/A',
-        phoneNo: phoneNo || 'N/A',
-        address: address || 'N/A',
-        gender: gender || 'N/A',
-        language: language || 'N/A',
-        dob: dob || 'N/A',
-        facebook: facebook || 'N/A',
-        twitter: twitter || 'N/A',
-      };
 
+    // Prepare FormData
+    const formData = new FormData();
+    formData.append('name', name || 'N/A');
+    formData.append('email', email || 'N/A');
+    formData.append('password', password || 'N/A');
+    formData.append('phoneNo', phoneNo || 'N/A');
+    formData.append('address', address || 'N/A');
+    formData.append('gender', gender || 'N/A');
+    formData.append('language', language || 'N/A');
+    formData.append('dob', dob || 'N/A');
+    formData.append('facebook', facebook || 'N/A');
+    formData.append('twitter', twitter || 'N/A');
+    if (profilePic) formData.append('profilePic', profilePic);
+
+    try {
       const response = await fetch(`http://localhost:8000/api/updateProfile/${userID}`, {
-        method: 'PUT',
-        body: JSON.stringify(updatedProfileData),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        method: 'PATCH',
+        body: formData,
       });
 
       if (!response.ok) {
@@ -210,6 +195,7 @@ console.log("dsdjkfjdsfdjsf",userEmail)
         dob: result.dob,
         facebook: result.facebook,
         twitter: result.twitter,
+        profilePic: result.profilePic, // Update with the new profile picture URL
       };
 
       localStorage.setItem('user', JSON.stringify(updatedUserData));
@@ -217,13 +203,11 @@ console.log("dsdjkfjdsfdjsf",userEmail)
       navigate('/showprofile');
       handleSweetAlertProfileUpdate();
     } catch (error) {
-    
       toast.error('Profile update failed. Please try again.');
     }
   };
 
   const DeleteAccount = async () => {
-    console.log("user id is ", userID);
     try {
       const response = await fetch(`http://localhost:8000/api/UsersDelete/${userID}`, {
         method: 'DELETE',
@@ -235,7 +219,6 @@ console.log("dsdjkfjdsfdjsf",userEmail)
       const result = await response.json();
 
       if (!response.ok) {
-        console.error('Response:', result);
         throw new Error('Network response was not ok.');
       }
 
@@ -243,12 +226,10 @@ console.log("dsdjkfjdsfdjsf",userEmail)
       handleRemovelocalData();
       handleSweetAlertProfiledelete();
     } catch (error) {
-      console.error('Error deleting account:', error);
       toast.error('Account deletion failed. Please try again.');
     }
   };
 
-  
   return (
     <>
       <Navbar />
@@ -269,8 +250,7 @@ console.log("dsdjkfjdsfdjsf",userEmail)
         <div className="row">
           <div className="col-md-4 d-flex justify-content-start align-items-center mb-4 mb-md-0 flex-column text-start  ">
             <div className=" border border-3 rounded rounded-2 d-flex flex-column  mb-3  p-5 align-items-center userlogo">
-              
-               <IoIosContact size={100} color='blue' className='img-fluid rounded-circle mb-3  ' />
+              <IoIosContact size={100} color='blue' className='img-fluid rounded-circle mb-3  ' />
               <FaLongArrowAltRight />
               <span className="bg-primary p-2 rounded mb-3">
                 {userName ? userName.toUpperCase() : 'U'}
@@ -278,38 +258,29 @@ console.log("dsdjkfjdsfdjsf",userEmail)
               <p className="text-muted mt-2">{userEmail ? userEmail : 'U'}</p>
             </div>
 
+            <div className='options'>
+              <CiEdit size={30} color='white' />
+              <button onClick={handleClickJobdetails} className=' border-0   btnoption '>Edit profile</button>
+            </div>
+            <div className='options'>
+              <BiDetail size={30} color='white' />
+              <button onClick={showuserDetail} className='  border-0 btnoption'>Show Details</button>
+            </div>
+            <div className='options '>
+              <MdDeleteForever size={30} color='red' />
+              <button onClick={DeleteAccount} className=' border-0 btnoption   '>Delete Account</button>
+            </div>
 
-            <div className='options'>
-            <CiEdit size={30} color='white' />
-            <button onClick={handleClickJobdetails} className=' border-0   btnoption '>Edit profile</button>
-            </div>
-            <div className='options'>
-            <BiDetail size={30} color='white' />
-            <button onClick={showuserDetail}  className='  border-0 btnoption'>Show Details</button>
-            </div>
-         <div className='options '>
-         <MdDeleteForever size={30} color='red'  />
-         <button onClick={DeleteAccount}  className=' border-0 btnoption   '>Delete Account</button>
-         </div>
-    
-         <ShowApplyJob/>
-    
-       
-           
+            <ShowApplyJob />
           </div>
-         
 
           <div className="col-md-8">
-            <div className="card shadow-sm">
-              <div className="card-header bg-secondary text-white userinfo">
-                <h4 className="mb-0 p-2">General Information</h4>
-              </div>
+            <div className="card mb-4">
               <div className="card-body">
+                <h4 className="card-title">Profile</h4>
                 <form onSubmit={collectData}>
-                  <div className="mb-3">
-                    <label htmlFor="name" className="form-label">
-                      First Name:
-                    </label>
+                  <div className="form-group mb-3">
+                    <label htmlFor="name">Name:</label>
                     <input
                       type="text"
                       className="form-control"
@@ -317,14 +288,11 @@ console.log("dsdjkfjdsfdjsf",userEmail)
                       name="name"
                       value={profileData.name}
                       onChange={handleChange}
-                       placeholder="Enter your name"
+                      placeholder="Enter your name"
                     />
                   </div>
-
-                  <div className="mb-3">
-                    <label htmlFor="email" className="form-label">
-                      Email:
-                    </label>
+                  {/* <div className="form-group mb-3">
+                    <label htmlFor="email">Email:</label>
                     <input
                       type="email"
                       className="form-control"
@@ -333,15 +301,10 @@ console.log("dsdjkfjdsfdjsf",userEmail)
                       value={profileData.email}
                       onChange={handleChange}
                       placeholder="Enter your email"
-                      readOnly
                     />
-
-                  </div>
-
-                  <div className="mb-3">
-                    <label htmlFor="password" className="form-label">
-                      Password:
-                    </label>
+                  </div> */}
+                  <div className="form-group mb-3">
+                    <label htmlFor="password">Password:</label>
                     <div className="input-group">
                       <input
                         type={showPassword ? 'text' : 'password'}
@@ -352,22 +315,15 @@ console.log("dsdjkfjdsfdjsf",userEmail)
                         onChange={handleChange}
                         placeholder="Enter your password"
                       />
-                      <button
-                        type="button"
-                        className="btn btn-outline-secondary"
-                        onClick={tglPasswordVisibility}
-                      >
+                      <span className="input-group-text" onClick={tglPasswordVisibility}>
                         {showPassword ? <FaEyeSlash /> : <FaEye />}
-                      </button>
+                      </span>
                     </div>
                   </div>
-
-                  <div className="mb-3">
-                    <label htmlFor="phoneNo" className="form-label">
-                      Phone Number:
-                    </label>
+                  <div className="form-group mb-3">
+                    <label htmlFor="phoneNo">Phone No:</label>
                     <input
-                      type="tel"
+                      type="text"
                       className="form-control"
                       id="phoneNo"
                       name="phoneNo"
@@ -376,11 +332,8 @@ console.log("dsdjkfjdsfdjsf",userEmail)
                       placeholder="Enter your phone number"
                     />
                   </div>
-
-                  <div className="mb-3">
-                    <label htmlFor="address" className="form-label">
-                      Address:
-                    </label>
+                  <div className="form-group mb-3">
+                    <label htmlFor="address">Address:</label>
                     <input
                       type="text"
                       className="form-control"
@@ -391,15 +344,12 @@ console.log("dsdjkfjdsfdjsf",userEmail)
                       placeholder="Enter your address"
                     />
                   </div>
-
-                  <div className="mb-3">
-                    <label htmlFor="gender" className="form-label">
-                      Gender:
-                    </label>
+                  <div className="form-group mb-3">
+                    <label htmlFor="gender">Gender:</label>
                     <select
-                      className="form-select"
                       id="gender"
                       name="gender"
+                      className="form-control"
                       value={profileData.gender}
                       onChange={handleChange}
                     >
@@ -409,32 +359,20 @@ console.log("dsdjkfjdsfdjsf",userEmail)
                       <option value="Other">Other</option>
                     </select>
                   </div>
-
-                  <div className="mb-3">
-                    <label htmlFor="language" className="form-label">
-                      Language:
-                    </label>
-                    <select
-                      className="form-select"
+                  <div className="form-group mb-3">
+                    <label htmlFor="language">Language:</label>
+                    <input
+                      type="text"
+                      className="form-control"
                       id="language"
                       name="language"
                       value={profileData.language}
                       onChange={handleChange}
-                    >
-                      <option value="">Select Language</option>
-                      <option value="English">English</option>
-                      <option value="Hindi">Hindi</option>
-                      <option value="Spanish">Spanish</option>
-                      <option value="French">French</option>
-                    </select>
+                      placeholder="Enter your language"
+                    />
                   </div>
-
-                 
-
-                  <div className="mb-3">
-                    <label htmlFor="dob" className="form-label">
-                      Date of Birth:
-                    </label>
+                  <div className="form-group mb-3">
+                    <label htmlFor="dob">Date of Birth:</label>
                     <input
                       type="date"
                       className="form-control"
@@ -444,39 +382,41 @@ console.log("dsdjkfjdsfdjsf",userEmail)
                       onChange={handleChange}
                     />
                   </div>
-
-                  <div className="mb-3">
-                    <label htmlFor="facebook" className="form-label">
-                      Facebook:
-                    </label>
+                  <div className="form-group mb-3">
+                    <label htmlFor="facebook">Facebook:</label>
                     <input
-                      type="url"
+                      type="text"
                       className="form-control"
                       id="facebook"
                       name="facebook"
                       value={profileData.facebook}
                       onChange={handleChange}
-                      placeholder="Enter Facebook profile link"
+                      placeholder="Enter your Facebook profile link"
                     />
                   </div>
-
-                  <div className="mb-3">
-                    <label htmlFor="twitter" className="form-label">
-                      Twitter:
-                    </label>
+                  <div className="form-group mb-3">
+                    <label htmlFor="twitter">Twitter:</label>
                     <input
-                      type="url"
+                      type="text"
                       className="form-control"
                       id="twitter"
                       name="twitter"
                       value={profileData.twitter}
                       onChange={handleChange}
-                      placeholder="Enter Twitter profile link"
+                      placeholder="Enter your Twitter profile link"
                     />
                   </div>
-
-                  <button
-                   onClick={collectData} type="submit" className="btn btn-primary">
+                  <div className="form-group mb-3">
+                    <label htmlFor="profilePic">Profile Picture:</label>
+                    <input
+                      type="file"
+                      className="form-control"
+                      id="profilePic"
+                      name="profilePic"
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <button type="submit" className="btn btn-primary">
                     Update Profile
                   </button>
                 </form>
@@ -485,8 +425,9 @@ console.log("dsdjkfjdsfdjsf",userEmail)
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
-  )
-}
+  );
+};
+
 export default ProfileUpdate;

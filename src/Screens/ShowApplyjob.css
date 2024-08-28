@@ -11,3 +11,6 @@
    box-shadow: 1px 10px 5px  gray;
    align-items: center;
 }
+.jobApply{
+    display: flex;
+}

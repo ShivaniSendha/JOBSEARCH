@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -27,8 +28,9 @@ const ShowApplyJob = () => {
   const uniqueCompanies = [...new Set(appliedJobs.map(job => job.companyName))];
   const companyCount = uniqueCompanies.length;
 
-  const handleShowDetails = (jobId) => {
-    navigate('/jobsdetails', { state: { jobId } });
+  const handleShowDetails = (job) => {
+console.log('appliedJobs', job);
+    navigate('/jobsdetails', { state: { job: job }  });
   };
 
   return (
@@ -37,14 +39,14 @@ const ShowApplyJob = () => {
   
         <ul>
           {appliedJobs.map(job => (
-                <div className='border border-1 text-start p-3 shadow'>
+                <div className='border border-1 text-start p-3 shadow d-flex '>
             <li key={job._id}>
                 <img className='companyNamelogo' src="https://cdn.prod.website-files.com/631ec5866e474e5b101f6a41/65aa51a8a1a3470ad359f9ca_Softude_Logo.svg" alt="" />
              {/* <div className='companyNamelogo'>{job.companyName}</div>  */}
               <p>Location: {job.address}</p>
               <p>Job Type: {job.jobType}</p>
               <button 
-                onClick={() => handleShowDetails(job._id)} // Pass job ID here
+                onClick={() => handleShowDetails(job)} // Pass job ID here
                 type="button" 
                 className="btn btn-outline-dark"
               >

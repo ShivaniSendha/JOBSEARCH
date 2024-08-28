@@ -4,8 +4,16 @@ const AddJob = require('../Modules/AddJob.js');
 const AddNewJob = async (req, res) => {
   try {
 
-    const job = await AddJob.create(req.body);
-   
+    const CompanyLogo = req.file ? req.file.path : null;
+
+
+    const jobData = {
+      ...req.body,
+      CompanyLogo,  
+    };
+
+    const job = await AddJob.create(jobData);
+
     res.status(201).json({ message: "New Job Created...", job });
   } catch (err) {
     console.error('Error during Job Creation:', err);
@@ -14,8 +22,11 @@ const AddNewJob = async (req, res) => {
       error: err.message
     });
   }
+};
 
-}
+
+
+
 // ===========Get
 const GetAllJOb = async (req, res) => {
   try {

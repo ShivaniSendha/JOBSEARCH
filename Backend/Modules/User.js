@@ -45,8 +45,10 @@ const userSchema = new mongoose.Schema({
   twitter: {
     type: String,
   
+  },
+  profilePic: {
+    type:String
   }
-  
   
 });
 

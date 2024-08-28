@@ -11,11 +11,14 @@ const LatestCards = (item) => {
 
   const UserData = JSON.parse(localStorage.getItem('user'));
   const userstatus = UserData?.status || UserData?.user?.status;
+
   const JobDetails = () => {
-    
+    console.log('====================================');
+    console.log('item.jobId', item.jobId);
+    console.log('====================================');
     navigate('/jobsdetails', { state: { job: item.jobId } });
-  
   };
+  
   return (
     <>
 

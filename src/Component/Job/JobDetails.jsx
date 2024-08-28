@@ -15,6 +15,9 @@ import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 
 const JobDetails = (item) => {
+
+  console.log('item',item);
+
   const alreadyApply=()=>{
     Swal.fire({
       icon: "warning",
@@ -23,10 +26,11 @@ const JobDetails = (item) => {
     });
   }
   const navigate = useNavigate();
-  const JobDetailss = () => {
 
+  const JobDetailss = () => {
     navigate('/jobsdetails', { state: { job: item.jobId } });
   };
+
   navigate('/job-details', { state: { job: JobDetailss } });
   const { state } = useLocation();
   const job = state?.job;

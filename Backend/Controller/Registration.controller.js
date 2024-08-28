@@ -2,35 +2,26 @@
 /* eslint-disable no-undef */
 const bcrypt = require('bcrypt');
 const Signup = require('../Modules/User'); // Ensure this model is compatible with your ORM/ODM
-
 const Registration = async (req, res) => {
   try {
     console.log("Request Body:", req.body);
 
+    // Check if user already exists
     const existingUser = await Signup.findOne({ email: req.body.email });
     if (existingUser) {
       return res.status(400).json({ message: 'User Already Exists' });
     }
 
-    // Hash the password before saving the user
-    const saltRounds = 10; // Number of salt rounds for hashing
-    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
-
-    // Create new user with hashed password
-    const user = await Signup.create({
-      ...req.body,
-      password: hashedPassword // Store the hashed password
-    });
-
-    return res.status(201).json(user);
+    // Create a new user
+    const user = await Signup.create(req.body);
     
-  } catch (err) {
-    console.error('Registration Failed:', err.message);
-    res.status(400).json({ message: 'Registration Failed', error: err.message });
+    console.log('User Created:', user);
+    return res.status(201).json(user);
+  } catch (error) {
+    console.error('Error during registration:', error);
+    return res.status(500).json({ message: 'Server Error' });
   }
 };
-
-
 
 const GetUsers = async (req, res) => {
   try {

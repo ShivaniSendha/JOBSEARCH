@@ -75,6 +75,9 @@ const AddJobSchema = new mongoose.Schema({
     required: true
   }
   ,
+  Companylogo: {
+    type: String, // Store the image file path as a string
+  },
   
  
   users: [
