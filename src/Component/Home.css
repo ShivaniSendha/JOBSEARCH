@@ -2,6 +2,6 @@
 .img1 {
   width: 100%;
   height: 300px;
-  object-fit: cover; /* Or 'contain', based on your need */
+  display: flex;
 
 }

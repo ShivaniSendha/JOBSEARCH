@@ -19,6 +19,7 @@ const Navbar = () => {
   }, []);
 
   const userName = userData?.name || userData?.user?.name;
+  const userEmail = userData?.email || userData?.user?.email;
 
   const handleSweetAlertLogout = () => {
     Swal.fire('Success!', 'Logout Successfully Done', 'success');
@@ -40,7 +41,7 @@ const Navbar = () => {
   };
 
   const handleClickShowJob = () => {
-  
+
     navigate('/home');
     setActiveItem('jobdetails');
 
@@ -107,47 +108,50 @@ const Navbar = () => {
                 <button className={`btn btn-outline-success dropdown-toggle ms-2 ${activeItem === 'addJob' || activeItem === 'jobdetails' ? 'active' : ''}`} type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Job
                 </button>
-                
-                
-                  <ul className="dropdown-menu">
-                  { userData? 
+
+
+                <ul className="dropdown-menu">
+                  {userEmail === 'admin@gmail.com' ?
                     (
-                      <li>
-                      <a
-                        className={`dropdown-item ${activeItem === 'jobdetails' ? 'active' : ''}`}
-                        href="#"
-                        onClick={handleClickShowJob}
-                      >
-                        Show Job
-                      </a>
-                    </li>
-                  ):(
-                    <>
-                    <li>
-                    <a
-                      className={`dropdown-item ${activeItem === 'addJob' ? 'active' : ''}`}
-                      href="#"
-                      onClick={handleClickCreateJob}
-                    >
-                      Add Job
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      className={`dropdown-item ${activeItem === 'jobdetails' ? 'active' : ''}`}
-                      href="#"
-                      onClick={handleClickShowJob}
-                    >
-                      Show Job
-                    </a>
-                  </li>
-                  </>
-                  )
-                 }
+                      <>
+                        <li>
+                          <a
+                            className={`dropdown-item ${activeItem === 'addJob' ? 'active' : ''}`}
+                            href="#"
+                            onClick={handleClickCreateJob}
+                          >
+                            Add Job
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            className={`dropdown-item ${activeItem === 'jobdetails' ? 'active' : ''}`}
+                            href="#"
+                            onClick={handleClickShowJob}
+                          >
+                            Show Job
+                          </a>
+                        </li>
+                      </>
+                    ) : (
+                      <>
+
+                        <li>
+                          <a
+                            className={`dropdown-item ${activeItem === 'jobdetails' ? 'active' : ''}`}
+                            href="#"
+                            onClick={handleClickShowJob}
+                          >
+                            Show Job
+                          </a>
+                        </li>
+                      </>
+                    )
+                  }
                 </ul>
-                  
-                
-                
+
+
+
               </li>
             </ul>
             {userData ? (
@@ -189,7 +193,7 @@ const Navbar = () => {
                   Login <IoIosContact size={20} color='white' />
                 </button>
                 <button className={`btn btn-outline-success ms-2 ${activeItem === 'registration' ? 'active' : ''}`} type="button"
-                 onClick={handleClickSignUp}>
+                  onClick={handleClickSignUp}>
                   Sign-up <FaLongArrowAltRight />
                 </button>
               </>

@@ -84,6 +84,10 @@ const AddJob = () => {
       toast.error('Job Type is required');
       return false;
     }
+    if (!jobData.skills) {
+      toast.error('Skills Type is required');
+      return false;
+    }
     // =======================
     if (!jobData.email) {
       toast.error('Email is required');
@@ -201,7 +205,7 @@ const AddJob = () => {
               name="companyName"
               value={jobData.companyName}
               onChange={handleChange}
-
+placeholder='Please Enter Company Name'
             />
           </div>
           <div className="form-group">
@@ -244,7 +248,7 @@ const AddJob = () => {
               name="description"
               value={jobData.description}
               onChange={handleChange}
-
+placeholder='Please Give Some Description'
             />
           </div>
           <div className="form-group">
@@ -254,7 +258,7 @@ const AddJob = () => {
               name="salaryRange"
               value={jobData.salaryRange}
               onChange={handleChange}
-
+placeholder='Please Enter Salary Range'
             />
           </div>
           <div className="form-group">
@@ -304,7 +308,7 @@ const AddJob = () => {
               name="qualification"
               value={jobData.qualification}
               onChange={handleChange}
-
+placeholder='Please Enter Required Qualification'
             />
           </div>
           <div className="form-group">
@@ -361,6 +365,7 @@ const AddJob = () => {
               name="email"
               value={jobData.email}
               onChange={handleChange}
+              placeholder='Please Enter  Email'
 
             />
           </div>
@@ -371,6 +376,7 @@ const AddJob = () => {
               name="phoneNo"
               value={jobData.phoneNo}
               onChange={handleChange}
+              placeholder='Please Enter  Phone No.'
 
             />
 
@@ -382,7 +388,7 @@ const AddJob = () => {
               name="address"
               value={jobData.address}
               onChange={handleChange}
-
+placeholder='Please Enter  Address'
             />
 
 
@@ -452,7 +458,7 @@ const AddJob = () => {
               name="zipCode"
               value={jobData.zipCode}
               onChange={handleChange}
-
+placeholder='Please Enter Zip Code'
             />
 
           </div>

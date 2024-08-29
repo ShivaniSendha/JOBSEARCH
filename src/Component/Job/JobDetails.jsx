@@ -17,9 +17,9 @@ import { CiTimer } from 'react-icons/ci';
 
 const JobDetails = (item) => {
 
-  console.log('item',item);
+  console.log('item', item);
 
-  const alreadyApply=()=>{
+  const alreadyApply = () => {
     Swal.fire({
       icon: "warning",
       text: "Already You Have Applied ",
@@ -38,6 +38,7 @@ const JobDetails = (item) => {
 
   const UserData = JSON.parse(localStorage.getItem('user'));
   const userID = UserData?._id || UserData?.user?.id;
+  const userEmail = UserData?.email || UserData?.user?.email;
   console.log('userID', userID);
 
 
@@ -130,11 +131,15 @@ const JobDetails = (item) => {
                       <p><strong>Company:</strong> {job?.companyName}</p>
                       <p><strong>Address:</strong> {job?.address}</p>
 
-                      {job?.users?.some(user => user.userId === userID) ? (
-                        <button onClick={alreadyApply} disabled={false} className="btn btn-success">Apply now</button>
-                      ) : (
-                        <button onClick={handleApply} className="btn btn-primary">Apply Now</button>
-                      )}
+                      {userEmail==='admin@gmail.com' ? null :
+                        job?.users?.some(user => user.userId === userID) ? (
+                          <button onClick={alreadyApply} disabled={false} className="btn btn-success">Apply now</button>
+                        ) : (
+                          <button onClick={handleApply} className="btn btn-primary">Apply Now</button>
+                        )
+                      }
+
+
 
                     </div>
                   )

@@ -1,31 +1,27 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react'
-import '../Job/LatestCards.css'
+import React, { useState } from 'react';
+import '../Job/LatestCards.css';
 import { useNavigate } from 'react-router-dom';
 
 const LatestCards = (item) => {
   const navigate = useNavigate();
-  console.log('item123', item);
-
   const [active, setActive] = useState();
 
   const UserData = JSON.parse(localStorage.getItem('user'));
-  const userstatus = UserData?.status || UserData?.user?.status;
+  const userId = UserData?._id || UserData?.user?.id;
 
   const JobDetails = () => {
-    console.log('====================================');
-    console.log('item.jobId', item.jobId);
-    console.log('====================================');
     navigate('/jobsdetails', { state: { job: item.jobId } });
   };
-  
+
+  // Check if the user has applied for this job
+  const hasApplied = item?.jobId?.userApplications?.some(application => application.userId === userId && application.status === 'applied');
+
   return (
     <>
-
-      <div    className='div'>
-
+      <div className='div'>
         <div>
-          <span className={`badge bg-warning w-10 p-2 ${active}?item?.jobId?.jobType==="Full Time"?"bg-success":"bg-primary" }`}>{item?.jobId?.jobType}</span>
+          <span className={`badge bg-warning w-10 p-2 ${active ? item?.jobId?.jobType === "Full Time" ? "bg-success" : "bg-primary" : ""}`}>{item?.jobId?.jobType}</span>
           <h1 className='fs-3 '>{item?.jobId?.companyName}</h1>
           <p>{item?.jobId?.address}</p>
         </div >
@@ -33,21 +29,19 @@ const LatestCards = (item) => {
           <h1 className='fs-3 fw-bold'>{item?.jobId?.skills[0]}</h1>
           <p>{item?.jobId?.description}</p>
         </div>
-        <div className='d-flex  gap-3 container align-items-center'>
+        <div className='d-flex gap-3 container align-items-center'>
           <span className="badge bg-primary w-10">Position {item?.jobId?.vacancies}</span>
           <span className="badge bg-primary w-10">{item?.jobId?.salaryRange}</span>
           <span className="badge bg-primary w-10">{item?.jobId?.experience}</span>
 
           <button onClick={JobDetails} type="button" className="btn btn-outline-dark">Show Details </button>
-          {
-            item?.jobId.status && <p className='text-success mt-3'>Applied</p>
-          }
 
+          {/* Show Applied status if the user has applied */}
+          {hasApplied && <p className='text-success mt-3'>Applied</p>}
         </div>
       </div>
-     
     </>
   )
 }
 
-export default LatestCards
+export default LatestCards;

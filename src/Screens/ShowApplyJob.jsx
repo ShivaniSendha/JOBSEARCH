@@ -4,12 +4,12 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../Screens/ShowApplyJob.css'
 import { IoLocationSharp } from 'react-icons/io5';
-import { CiTimer } from 'react-icons/ci';
+
 import { MdAccessTimeFilled } from 'react-icons/md';
 const ShowApplyJob = () => {
   const [appliedJobs, setAppliedJobs] = useState([]);
   const [userID, setUserID] = useState(null);
-  const [selectedJobId, setSelectedJobId] = useState(null); // Track selected job ID
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,11 +36,18 @@ console.log('appliedJobs', job);
     navigate('/jobsdetails', { state: { job: job }  });
   };
 
+  const UserData = JSON.parse(localStorage.getItem('user'));
+  
+  const userEmail = UserData?.email || UserData?.user?.email;
 
   return (
     <div >
-      <p className='text-primary fw-bold'>Applied Jobs ({companyCount})</p>
-  
+      {
+        userEmail==='admin@gmail.com' ? null :
+    
+          <p className='text-primary fw-bold'>Applied Jobs ({companyCount})</p>
+          
+      }
         <ul>
           {appliedJobs.map(job => (
                 <div className='border border-1 text-start p-3 shadow   '>

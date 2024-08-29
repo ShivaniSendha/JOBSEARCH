@@ -50,7 +50,7 @@ const LatestJob = () => {
             <span className="text-primary">Latest & Top</span> Job Openings
           </h1>
       <SearchInput onSearch={handleSearch} />
-      <section className='p-5' id="top-jobs" ref={jobSectionRef}>
+      <section className='' id="top-jobs" ref={jobSectionRef}>
        
          
           {loading ? (
