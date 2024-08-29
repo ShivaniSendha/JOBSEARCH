@@ -161,7 +161,6 @@ const AddJob = () => {
           },
         });
 
-        // Check if response is ok (status in the range 200-299)
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -169,7 +168,6 @@ const AddJob = () => {
         const result = await response.json();
         localStorage.setItem('users', JSON.stringify(result));
 
-        // Navigate to login page
         navigate('/home');
         handleSweetAlertJobCreate();
       } catch (error) {

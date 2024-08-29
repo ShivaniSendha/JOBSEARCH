@@ -1,16 +1,36 @@
 .companyNamelogo {
 
-    border-radius: 50%; 
+
     padding: 10px;
-    width: 100px; 
-    height: 100px;
+    width: 200px auto;
+    height: auto;
     display: flex;
     align-items: center;
-    justify-content: center; 
-    color: white; 
-   box-shadow: 1px 10px 5px  gray;
-   align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 1px 1px 5px 1px rgb(71, 54, 54);
+    align-items: center;
+    font-weight: bold;
+    background: linear-gradient(90deg, rgb(219, 13, 30) 0%, rgba(121, 175, 137, 1) 50%, rgb(16, 9, 231) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 25px;
 }
-.jobApply{
+
+.jobApply {
     display: flex;
+}
+
+.jobicn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+
+}
+
+.jobicn1 {
+    margin-left: 5px;
+    text-align: start;
 }

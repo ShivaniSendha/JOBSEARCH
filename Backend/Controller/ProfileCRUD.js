@@ -5,13 +5,12 @@
 
 const Signup = require('../Modules/User');
 
-// PUT route example
 const profileupdate= async (req, res) => {
   const { id } = req.params;
   const { name, email, password, phoneNo, address, gender, language, dob, facebook, twitter } = req.body;
 
   try {
-    // Find and update the user by ID
+  
     const updatedUser = await Signup.findByIdAndUpdate(id, {
       name,
       email,

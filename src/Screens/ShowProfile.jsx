@@ -3,6 +3,7 @@ import React from 'react';
 import '../Screens/ShowProfile.css';
 import Navbar from '../Component/Navbar/Navbar';
 import { IoIosContact } from 'react-icons/io';
+import { IoLocationSharp } from 'react-icons/io5';
 
 const ShowProfile = () => {
   const UserData = JSON.parse(localStorage.getItem('user'));
@@ -26,7 +27,7 @@ const ShowProfile = () => {
       <Navbar />
       <div className='contacticn'>
         <div className="profile-container  ">
-          {userProfile ? (
+          {/* {userProfile ? (
           <img 
             src={`http://localhost:8000/uploads/${userProfile}`} 
             alt="User Profile"
@@ -34,29 +35,31 @@ const ShowProfile = () => {
           />
         ) : (
           <p>No profile picture available</p>
-        )}
-          <h2 className="profile-title">User Profile</h2>
+        )} */}
+          <IoIosContact size={150} color='blue' className='img-fluid rounded-circle mb-3  ' />
+      
+       
           <ul className="profile-list">
 
             {username ? <li><strong>Name:</strong> {username}</li> : null}
             {userEmail ? <li><strong>Email:</strong> {userEmail}</li> : null}
+            {usernphone ? <li><strong>Phone No:</strong> {usernphone}</li> : null}
+            </ul>
+        
+            <div className='profile-container-sec'>
+  <ul className="profile-list1">
+{useraddress && <li><strong>Address:</strong> {useraddress}</li>}
+    {usergender && <li><strong>Gender:</strong> {usergender}</li>}
+    {userlanguage && <li><strong>Language:</strong> {userlanguage}</li>}
+    {userdob && <li><strong>Date of Birth:</strong> {userdob}</li>}
+    {userfacebook && <li><strong>Facebook:</strong> {userfacebook}</li>}
+    {usertwitter && <li><strong>Twitter:</strong> {usertwitter}</li>}
+  </ul>
+</div>
 
-            {useraddress && <li><strong>Address:</strong> {useraddress}</li>}
-            {usernphone ? <li><strong>Name:</strong> {usernphone}</li> : null}
-            {usergender && <li><strong>Gender:</strong> {usergender}</li>}
-            {userlanguage && <li><strong>Language:</strong> {userlanguage}</li>}
-            {userdob ? <li><strong>Date of Birth:</strong> {userdob}</li> : null}
-            {userfacebook ? <li><strong>Facebook:</strong>  {userfacebook} </li> : null}
-            {usertwitter ? <li><strong>Twitter:</strong> {usertwitter} </li> : null}
-
-
-
-
-
-
-
-          </ul>
-        </div>
+</div>
+       
+   
       </div>
     </>
   );

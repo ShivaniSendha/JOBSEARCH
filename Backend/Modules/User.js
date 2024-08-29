@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 const mongoose = require('mongoose');
 const bcrypt =require('bcryptjs')
+const jwt =require('jsonwebtoken')
 const userSchema = new mongoose.Schema({
 
   name: {
@@ -46,9 +47,7 @@ const userSchema = new mongoose.Schema({
     type: String,
   
   },
-  profilePic: {
-    type:String
-  }
+ 
   
 });
 

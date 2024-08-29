@@ -35,7 +35,7 @@ const UserLogin = () => {
     };
 
     const validatePassword = (password) => {
-      return /^\d{5,}$/.test(password);
+      return /^\d{6,}$/.test(password);
     };
 
     if (!email) {
@@ -54,7 +54,7 @@ const UserLogin = () => {
     }
 
     if (!validatePassword(password)) {
-      toast.error('Password must be at least 5 digits long and contain only digits.');
+      toast.error('Password must be at least 6 digits long and contain only digits.');
       return;
     }
 

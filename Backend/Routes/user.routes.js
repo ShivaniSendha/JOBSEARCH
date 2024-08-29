@@ -4,12 +4,13 @@ const router = express.Router();
 const { Registration, GetUsers, GetUsersId, GetUsersUpdate } = require('../Controller/Registration.controller.js');
 
 const Login = require('../Controller/Login.controller.js');
-
-const { UserDelete, profileupdate } = require('../Controller/ProfileCRUD.js');
-
+const { profileupdate, UserDelete } = require('../Controller/ProfileCRUD.js');
 
 
-router.put('/updateProfile/:id',profileupdate)
+
+
+
+router.patch('/updateProfile/:id',profileupdate)
 router.post('/UserRegistration', Registration);
 router.get("/GetUsers", GetUsers);
 router.get('/GetUsers/:ID', GetUsersId);

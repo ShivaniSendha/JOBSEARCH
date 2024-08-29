@@ -1,11 +1,13 @@
 
+/* Navbar styles */
 .navbar {
-  position: fixed;
+  position: fixed; /* Keeps it at the top */
+  top: 0;
   width: 100%;
-  margin-top: -10px;
-  z-index: 1000;
-  transition: background-color 0.3s ease;
+  z-index: 1000; /* Ensure it's above other content */
+  margin: 0; /* Reset any margin */
 }
+
 
 .navbar-scrolled {
   background: rgb(34,193,195);

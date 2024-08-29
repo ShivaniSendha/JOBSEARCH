@@ -13,6 +13,7 @@ import Map from '../Map';
 import Footer from '../Footer/Footer.jsx';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import { CiTimer } from 'react-icons/ci';
 
 const JobDetails = (item) => {
 
@@ -255,6 +256,10 @@ const JobDetails = (item) => {
                       <div className="d-flex align-items-center justify-content-start mb-3">
                         <TbBrandNem size={25} />
                         <p className="mb-0 ms-2">{job.experience}</p>
+                      </div>
+                      <div className="d-flex align-items-center justify-content-start mb-3">
+                        <CiTimer size={25} />
+                        <p className="mb-0 ms-2">{job.jobType}</p>
                       </div>
                     </div>
                   ) : (

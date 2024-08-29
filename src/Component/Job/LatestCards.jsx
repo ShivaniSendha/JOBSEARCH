@@ -22,7 +22,7 @@ const LatestCards = (item) => {
   return (
     <>
 
-      <div className='div'>
+      <div    className='div'>
 
         <div>
           <span className={`badge bg-warning w-10 p-2 ${active}?item?.jobId?.jobType==="Full Time"?"bg-success":"bg-primary" }`}>{item?.jobId?.jobType}</span>

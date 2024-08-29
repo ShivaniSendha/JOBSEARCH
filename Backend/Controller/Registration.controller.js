@@ -16,7 +16,7 @@ const Registration = async (req, res) => {
     const user = await Signup.create(req.body);
     
     console.log('User Created:', user);
-    return res.status(201).json(user);
+    return res.status(201).json({user});
   } catch (error) {
     console.error('Error during registration:', error);
     return res.status(500).json({ message: 'Server Error' });

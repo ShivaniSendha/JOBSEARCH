@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../Screens/ShowApplyJob.css'
+import { IoLocationSharp } from 'react-icons/io5';
+import { CiTimer } from 'react-icons/ci';
+import { MdAccessTimeFilled } from 'react-icons/md';
 const ShowApplyJob = () => {
   const [appliedJobs, setAppliedJobs] = useState([]);
   const [userID, setUserID] = useState(null);
@@ -33,20 +36,26 @@ console.log('appliedJobs', job);
     navigate('/jobsdetails', { state: { job: job }  });
   };
 
+
   return (
     <div >
       <p className='text-primary fw-bold'>Applied Jobs ({companyCount})</p>
   
         <ul>
           {appliedJobs.map(job => (
-                <div className='border border-1 text-start p-3 shadow d-flex '>
+                <div className='border border-1 text-start p-3 shadow   '>
             <li key={job._id}>
-                <img className='companyNamelogo' src="https://cdn.prod.website-files.com/631ec5866e474e5b101f6a41/65aa51a8a1a3470ad359f9ca_Softude_Logo.svg" alt="" />
-             {/* <div className='companyNamelogo'>{job.companyName}</div>  */}
-              <p>Location: {job.address}</p>
-              <p>Job Type: {job.jobType}</p>
+                {/* <img className='companyName
+                logo' src="https://cdn.prod.website-files.com/631ec5866e474e5b101f6a41/65aa51a8a1a3470ad359f9ca_Softude_Logo.svg" alt="" /> */}
+                <div className='jobicn'>
+             <p className='companyNamelogo'>{job.companyName}</p> 
+             <div className='d-flex flex-column jobicn1 '>
+              <p className=''>  <IoLocationSharp size={22} color='green' />{job.address}</p>
+              <p className='ms-1'><MdAccessTimeFilled size={18} color='green' /> {job.jobType}</p>
+              </div>
+              </div>
               <button 
-                onClick={() => handleShowDetails(job)} // Pass job ID here
+                onClick={() => handleShowDetails(job)} 
                 type="button" 
                 className="btn btn-outline-dark"
               >
