@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+
 
 const mongoose = require('mongoose');
 
@@ -41,7 +41,7 @@ const AddJobSchema = new mongoose.Schema({
     required: true
   },
   skills: {
-    type: [String], // Array of strings for multiple skills
+    type: [String],
     required: true
   },
   email: {

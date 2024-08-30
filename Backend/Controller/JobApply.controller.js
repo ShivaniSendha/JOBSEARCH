@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+
 
 
 
@@ -9,21 +9,20 @@ const ApplyJOb = async (req, res) => {
   const { userId, jobId, status, date, time } = req.body;
 
   try {
-    // Find the job by its ID
+
     const job = await AddJob.findById(jobId);
     if (!job) {
       return res.status(404).json({ message: 'Job not found' });
     }
 
-    // Push the new user object into the users array
+    
     job.users.push({
       userId: userId,
       status: status,
-      date: date,
-      time: time
+      date: new Date(date), 
+      time: time,
+    
     });
-
-    // Save the job document with the updated users array
     await job.save()
 
     console.log("job", job);

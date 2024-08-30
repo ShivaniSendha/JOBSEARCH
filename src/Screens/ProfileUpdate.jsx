@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash, FaLongArrowAltRight } from 'react-icons/fa';
 import '../Screens/ProfileUpdate.css';
 import Swal from 'sweetalert2';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import Navbar from '../Component/Navbar/Navbar';
 import Footer from '../Component/Footer/Footer';
 import { IoIosContact } from 'react-icons/io';
@@ -49,9 +49,13 @@ const ProfileUpdate = () => {
   const handleSweetAlertProfileUpdate = () => {
     Swal.fire('Success!', 'Profile Updated Successfully', 'success');
   };
+  const handleSweetAlertProfiledeletefailed = () => {
+    Swal.fire('Failed!', 'Profile Updated Failed', 'sucfailedcess');
+  };
   const handleSweetAlertProfiledelete = () => {
     Swal.fire('Success!', 'Account deleted Successfully', 'success');
   };
+
 
   const tglPasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -84,12 +88,14 @@ console.log("dsdjkfjdsfdjsf",userEmail)
   };
 
   const validatePassword = (password) => {
-    return /^\d{6,}$/.test(password);
+    return /^\d{5,}$/.test(password);
+  };
+  const validatePhoneno = (password) => {
+    return /^\d{10,}$/.test(password);
   };
 
   const collectData = async (e) => {
     e.preventDefault();
-  
     const {
       name,
       email,
@@ -102,9 +108,7 @@ console.log("dsdjkfjdsfdjsf",userEmail)
       facebook,
       twitter,
     } = profileData;
-  
     toast.dismiss();
-  
     if (!name) {
       toast.error('Please enter your name.');
       return;
@@ -116,7 +120,7 @@ console.log("dsdjkfjdsfdjsf",userEmail)
     }
   
     if (!validatePassword(password)) {
-      toast.error('Password must be at least 6 digits long and contain only digits.');
+      toast.error('Password must be at least 5 digits long and contain only digits.');
       return;
     }
   
@@ -125,7 +129,7 @@ console.log("dsdjkfjdsfdjsf",userEmail)
       return;
     }
   
-    if (phoneNo.length < 10) {
+    if (!validatePhoneno(phoneNo)) {
       toast.error('Phone number must be at least 10 digits long.');
       return;
     }
@@ -218,11 +222,11 @@ console.log("dsdjkfjdsfdjsf",userEmail)
       navigate('/showprofile');
       handleSweetAlertProfileUpdate();
     } catch (error) {
-    
-      toast.error('Profile update failed. Please try again.');
+      handleSweetAlertProfiledeletefailed();
+      // toast.error('Profile update failed. Please try again.');
     }
   };
-
+//-------Profile  Delete Api
   const DeleteAccount = async () => {
     console.log("user id is ", userID);
     try {
@@ -274,23 +278,23 @@ console.log("dsdjkfjdsfdjsf",userEmail)
                <IoIosContact size={100} color='blue' className='img-fluid rounded-circle mb-3  ' />
               <FaLongArrowAltRight />
               <span className="bg-primary p-2 rounded mb-3">
-                {userName ? userName.toUpperCase() : 'U'}
+                {userName ? userName.toUpperCase() : 'User not present'}
               </span>
-              <p className="text-muted mt-2">{userEmail ? userEmail : 'U'}</p>
+              <p className="text-muted mt-2">{userEmail ? userEmail : 'User Not'}</p>
             </div>
 
 
             <div className='options'>
             <CiEdit size={30} color='white' />
-            <button onClick={handleClickJobdetails} className=' border-0   btnoption '>Edit profile</button>
+            <button onClick={handleClickJobdetails} className=' border-0   btnoption'>Edit profile</button>
             </div>
             <div className='options'>
             <BiDetail size={30} color='white' />
-            <button onClick={showuserDetail}  className='  border-0 btnoption'>Show Details</button>
+            <button onClick={showuserDetail}  className='  border-0 btnoption '>Show Details</button>
             </div>
          <div className='options '>
          <MdDeleteForever size={30} color='red'  />
-         <button onClick={DeleteAccount}  className=' border-0 btnoption   '>Delete Account</button>
+         <button onClick={DeleteAccount}  className=' border-0 btnoption '>Delete Account</button>
          </div>
     
          <ShowApplyJob/>
@@ -486,6 +490,7 @@ console.log("dsdjkfjdsfdjsf",userEmail)
           </div>
         </div>
       </div>
+      <ToastContainer />
       <Footer/>
     </>
   )

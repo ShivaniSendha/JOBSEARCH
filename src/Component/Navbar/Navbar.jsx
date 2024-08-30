@@ -72,9 +72,7 @@ const Navbar = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
-
     window.addEventListener('scroll', handleScroll);
-
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -83,7 +81,7 @@ const Navbar = () => {
   return (
     <nav className={`navbar navbar-expand-lg shadow-sm p-3 ${scrolled ? 'navbar-scrolled' : 'bg-transparent'}`}>
       <div className="container-fluid">
-        <img className="navbar-brand" src={logo} alt="Logo" style={{ width: '10%', height: '50px', borderRadius: '5px' }} />
+       <IoIosContact size={20} color='white' />
         <button
           className="navbar-toggler"
           type="button "

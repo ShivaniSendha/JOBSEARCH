@@ -35,7 +35,7 @@ const UserLogin = () => {
     };
 
     const validatePassword = (password) => {
-      return /^\d{6,}$/.test(password);
+      return /^\d{5,}$/.test(password);
     };
 
     if (!email) {
@@ -54,7 +54,7 @@ const UserLogin = () => {
     }
 
     if (!validatePassword(password)) {
-      toast.error('Password must be at least 6 digits long and contain only digits.');
+      toast.error('Password must be at least 5 digits long and contain only digits.');
       return;
     }
 
@@ -89,7 +89,7 @@ const UserLogin = () => {
   return (
     <>
       <Navbar />
-      <div className="hero-container">
+      <div className="hero-container ">
         <img src={logo} className="hero-image" alt="img" />
         <div className="hero-text">
           <h1>Login</h1>
@@ -99,7 +99,7 @@ const UserLogin = () => {
         </div>
       </div>
       <form onSubmit={collectData} className="container mt-5 mb-5 col-4">
-        <div className="p-5 border border-2 ">
+        <div className="p-5 border border-2 login ">
           <div className="mb-3">
             <label htmlFor="email" className="form-label">Email</label>
             <input

@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+
 const AddJob = require('../Modules/AddJob.js');
 
 const AddNewJob = async (req, res) => {
@@ -31,7 +31,8 @@ const AddNewJob = async (req, res) => {
 const GetAllJOb = async (req, res) => {
   try {
 
-    const job = await AddJob.find(req.body);
+    // const job = await AddJob.find(req.body);
+    const job = await AddJob.find().populate('users.userId', 'name email');
     console.log('====================================');
  console.log(req.body);
  

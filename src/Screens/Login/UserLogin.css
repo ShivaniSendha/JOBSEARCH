@@ -1,6 +1,7 @@
 .show {
   display: flex;
   align-items: center;
+ 
 }
 
 .show input {
@@ -67,3 +68,6 @@ position: relative;
   background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(121,175,137,1) 50%);
 }
 
+.login{
+  margin-bottom: 400px;
+}

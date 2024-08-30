@@ -32,7 +32,7 @@ const ShowApplyJob = () => {
   const companyCount = uniqueCompanies.length;
 
   const handleShowDetails = (job) => {
-console.log('appliedJobs', job);
+
     navigate('/jobsdetails', { state: { job: job }  });
   };
 
@@ -52,8 +52,7 @@ console.log('appliedJobs', job);
           {appliedJobs.map(job => (
                 <div className='border border-1 text-start p-3 shadow   '>
             <li key={job._id}>
-                {/* <img className='companyName
-                logo' src="https://cdn.prod.website-files.com/631ec5866e474e5b101f6a41/65aa51a8a1a3470ad359f9ca_Softude_Logo.svg" alt="" /> */}
+               
                 <div className='jobicn'>
              <p className='companyNamelogo'>{job.companyName}</p> 
              <div className='d-flex flex-column jobicn1 '>

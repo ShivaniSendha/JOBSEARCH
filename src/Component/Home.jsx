@@ -15,22 +15,17 @@ const Home = () => {
 
   return (
     <>
- 
- <Navbar />
+      <Navbar />
       <img className='img1 ' src={logo}
         alt="Your Image Description"></img>
 
-      <div data-aos="fade-down"  data-aos-easing="linear"
-     data-aos-duration="1500" className="hero-text flex rounded rounded-5 " style={{ top:'20%' }}>
+      <div data-aos="fade-down" data-aos-easing="linear"
+        data-aos-duration="1500" className="hero-text flex rounded rounded-5 " style={{ top: '30%' }}>
         <h1 className='heading'>Search , Apply & <br></br> Get Your <span className='text-primary'>Dreams Jobs</span></h1>
-        <FaHandPointDown  size={40} color='white' />
-
+        <FaHandPointDown size={40} color='white' />
       </div>
-
-
       <LatestJob />
-   
-      <Footer/>
+      <Footer />
 
     </>
   );

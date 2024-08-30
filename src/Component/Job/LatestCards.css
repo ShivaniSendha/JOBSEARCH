@@ -1,12 +1,18 @@
 .div {
   border: solid 1px green;
   padding: 10px;
-  border-radius: 10px;   
+  border-radius: 10px;
   margin-bottom: 20px;
   width: 400px;
   height: auto;
   overflow: visible;
+  transition: transform 0.3s ease; 
 
+}
+.div:hover{
+  transform: scale(1.1); 
+  background: rgb(34,193,195);
+  background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgb(195, 240, 209) 50%);
 }
 
 .div2 {
@@ -37,7 +43,8 @@
 
 .d-flex {
   flex-wrap: wrap;
-  justify-content: space-between;
+align-items: start;
+
 }
 
 .container {

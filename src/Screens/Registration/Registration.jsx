@@ -33,7 +33,7 @@ const Registration = () => {
   };
 
   const validatePassword = (password) => {
-    return /^\d{6,}$/.test(password);
+    return /^\d{5,}$/.test(password);
   };
 
 
@@ -63,35 +63,38 @@ const Registration = () => {
     }
 
     if (!validatePassword(password)) {
-      toast.error('Password must be at least 6 digits long and contain only digits.');
+      toast.error('Password must be at least 5 digits long and contain only digits.');
       return;
     }
 
-    try {
-      const response = await fetch('http://localhost:8000/api/UserRegistration', {
-        method: 'POST',
-        body: JSON.stringify({ name, email, password }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+   
+  try {
+    const response = await fetch('http://localhost:8000/api/UserRegistration', {
+      method: 'POST',
+      body: JSON.stringify({ name, email, password }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-      // Check if the response is JSON
-      const result = await response.json();
+    const result = await response.json();
+console.log('result',result);
 
-      if (!response.ok) {
-        throw new Error(result.error || 'Registration failed. Please try again.');
+    if (!response.ok) {
+      if (result.message === 'User Already Exists') {
+        toast.error('User already exists. Please use a different email.');
+      } else {
+        throw new Error(result.message || 'Registration failed. Please try again.');
       }
-
+    } else {
       localStorage.setItem('users', JSON.stringify(result));
       navigate('/userlogin');
       handleSweetAlertSIgnup();
-
-    } catch (error) {
-
-      toast.error(`Registration failed: ${error.message}`);
     }
-  };
+  } catch (error) {
+    toast.error(`Registration failed: ${error.message}`);
+  }
+};
 
   return (
     <>
@@ -106,7 +109,7 @@ const Registration = () => {
         </div>
       </div>
       <form onSubmit={collectData} className="container mt-5 mb-5 col-4">
-        <div className='p-5 border border-2 rounded'>
+        <div className='p-5 border border-2 rounded login'>
           <div className="mb-3">
             <label htmlFor="name" className="form-label">Name</label>
             <input

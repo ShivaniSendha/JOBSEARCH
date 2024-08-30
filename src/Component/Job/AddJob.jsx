@@ -205,7 +205,7 @@ const AddJob = () => {
               name="companyName"
               value={jobData.companyName}
               onChange={handleChange}
-placeholder='Please Enter Company Name'
+              placeholder='Please Enter Company Name'
             />
           </div>
           <div className="form-group">
@@ -236,10 +236,25 @@ placeholder='Please Enter Company Name'
 
             >
               <option value="">Select Location</option>
-              <option value="Indore">Indore</option>
-              <option value="Mumbai">Mumbai</option>
-              <option value="Bangalore">Bangalore</option>
-              {/* Add more locations as needed */}
+              <option value="Jodhpur">Indore</option>
+              <option value="Gwalior">Bhopal</option>
+              <option value="Delhi">Delhi</option>
+              <option value="Hyderabad">Hyderabad</option>
+              <option value="Chennai">Chennai</option>
+              <option value="Pune">Pune</option>
+              <option value="Kolkata">Kolkata</option>
+              <option value="Ahmedabad">Ahmedabad</option>
+              <option value="Jaipur">Jaipur</option>
+              <option value="Surat">Surat</option>
+              <option value="Lucknow">Lucknow</option>
+              <option value="Chandigarh">Chandigarh</option>
+              <option value="Nagpur">Nagpur</option>
+              <option value="Bhopal">Bhopal</option>
+              <option value="Jodhpur">Jodhpur</option>
+              <option value="Gwalior">Gwalior</option>
+              <option value="Kochi">Kochi</option>
+              <option value="Patna">Patna</option>
+           
             </select>
           </div>
           <div className="form-group">
@@ -248,7 +263,7 @@ placeholder='Please Enter Company Name'
               name="description"
               value={jobData.description}
               onChange={handleChange}
-placeholder='Please Give Some Description'
+              placeholder='Please Give Some Description'
             />
           </div>
           <div className="form-group">
@@ -258,7 +273,7 @@ placeholder='Please Give Some Description'
               name="salaryRange"
               value={jobData.salaryRange}
               onChange={handleChange}
-placeholder='Please Enter Salary Range'
+              placeholder='Please Enter Salary Range'
             />
           </div>
           <div className="form-group">
@@ -308,7 +323,7 @@ placeholder='Please Enter Salary Range'
               name="qualification"
               value={jobData.qualification}
               onChange={handleChange}
-placeholder='Please Enter Required Qualification'
+              placeholder='Please Enter Required Qualification'
             />
           </div>
           <div className="form-group">
@@ -376,7 +391,7 @@ placeholder='Please Enter Required Qualification'
               name="phoneNo"
               value={jobData.phoneNo}
               onChange={handleChange}
-              placeholder='Please Enter  Phone No.'
+            placeholder='Please Enter Your Phone No'
 
             />
 
@@ -388,7 +403,7 @@ placeholder='Please Enter Required Qualification'
               name="address"
               value={jobData.address}
               onChange={handleChange}
-placeholder='Please Enter  Address'
+              placeholder='Please Enter  Address'
             />
 
 
@@ -404,8 +419,28 @@ placeholder='Please Enter  Address'
               <option value="">City</option>
               <option value="indore">Indore</option>
               <option value="bhopal">Bhopal</option>
-              <option value="pune">Pune</option>
-              <option value="chennai">Chennai</option>
+              <option value="mumbai">Mumbai</option>
+              <option value="delhi">Delhi</option>
+              <option value="bangalore">Bangalore</option>
+              <option value="hyderabad">Hyderabad</option>
+              <option value="kolkata">Kolkata</option>
+              <option value="ahmedabad">Ahmedabad</option>
+              <option value="jaipur">Jaipur</option>
+              <option value="lucknow">Lucknow</option>
+              <option value="chandigarh">Chandigarh</option>
+              <option value="surat">Surat</option>
+              <option value="nagpur">Nagpur</option>
+              <option value="kanpur">Kanpur</option>
+              <option value="visakhapatnam">Visakhapatnam</option>
+              <option value="kochi">Kochi</option>
+              <option value="patna">Patna</option>
+              <option value="ludhiana">Ludhiana</option>
+              <option value="nashik">Nashik</option>
+              <option value="ranchi">Ranchi</option>
+              <option value="vadodara">Vadodara</option>
+              <option value="coimbatore">Coimbatore</option>
+              <option value="bhubaneswar">Bhubaneswar</option>
+
             </select>
           </div>
           <div className="form-group">
@@ -458,7 +493,7 @@ placeholder='Please Enter  Address'
               name="zipCode"
               value={jobData.zipCode}
               onChange={handleChange}
-placeholder='Please Enter Zip Code'
+              placeholder='Please Enter Zip Code'
             />
 
           </div>
@@ -469,7 +504,7 @@ placeholder='Please Enter Zip Code'
         </form>
       </div>
       <ToastContainer />
-      <Footer/>
+      <Footer />
     </>
 
   );
@@ -477,3 +512,6 @@ placeholder='Please Enter Zip Code'
 }
 
 export default AddJob;
+
+
+

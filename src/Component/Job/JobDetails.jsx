@@ -27,6 +27,8 @@ const JobDetails = (item) => {
     });
   }
   const navigate = useNavigate();
+  const location = useLocation();
+  const jobLocation = location.state?.job;
 
   const JobDetailss = () => {
     navigate('/jobsdetails', { state: { job: item.jobId } });
@@ -42,7 +44,6 @@ const JobDetails = (item) => {
   console.log('userID', userID);
 
 
-  console.log('Job Status:', job?.status);
   const HomeClick = () => {
     navigate('/home');
   };
@@ -128,18 +129,16 @@ const JobDetails = (item) => {
                   {job ? (
                     <div className="card1 p-3">
                       <h2 className="fs-2">{job?.skills}</h2>
-                      <p><strong>Company:</strong> {job?.companyName}</p>
+                      <p className='companyNamelogo'> {job?.companyName}</p>
                       <p><strong>Address:</strong> {job?.address}</p>
 
                       {userEmail==='admin@gmail.com' ? null :
                         job?.users?.some(user => user.userId === userID) ? (
-                          <button onClick={alreadyApply} disabled={false} className="btn btn-success">Apply now</button>
+                          <button onClick={alreadyApply} disabled={true} className="btn btn-success">Applied</button>
                         ) : (
                           <button onClick={handleApply} className="btn btn-primary">Apply Now</button>
                         )
                       }
-
-
 
                     </div>
                   )

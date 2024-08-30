@@ -14,13 +14,13 @@ const LatestCards = (item) => {
     navigate('/jobsdetails', { state: { job: item.jobId } });
   };
 
-  // Check if the user has applied for this job
-  const hasApplied = item?.jobId?.userApplications?.some(application => application.userId === userId && application.status === 'applied');
+ 
+  const hasApplied = item?.jobId?.users?.some(application => application.userId === userId && application.status === 'Applied');
 
   return (
     <>
       <div className='div'>
-        <div>
+        <div >
           <span className={`badge bg-warning w-10 p-2 ${active ? item?.jobId?.jobType === "Full Time" ? "bg-success" : "bg-primary" : ""}`}>{item?.jobId?.jobType}</span>
           <h1 className='fs-3 '>{item?.jobId?.companyName}</h1>
           <p>{item?.jobId?.address}</p>
@@ -35,9 +35,8 @@ const LatestCards = (item) => {
           <span className="badge bg-primary w-10">{item?.jobId?.experience}</span>
 
           <button onClick={JobDetails} type="button" className="btn btn-outline-dark">Show Details </button>
+          {hasApplied ? <p  className='text-success mt-2'>Applied</p> : null}
 
-          {/* Show Applied status if the user has applied */}
-          {hasApplied && <p className='text-success mt-3'>Applied</p>}
         </div>
       </div>
     </>
