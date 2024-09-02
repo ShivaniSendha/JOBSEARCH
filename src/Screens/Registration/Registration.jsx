@@ -78,7 +78,8 @@ const Registration = () => {
     });
 
     const result = await response.json();
-console.log('result',result);
+    console.log('Response Status:', response.status);
+    console.log('Result:', result);
 
     if (!response.ok) {
       if (result.message === 'User Already Exists') {

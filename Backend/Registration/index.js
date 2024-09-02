@@ -8,7 +8,7 @@ require('../db/connection');
 const UserRouter = require('../Routes/user.routes.js');
 const AddJobRouter = require('../Routes/AddJob.routes.js');
 const app = express();
-const port = 6000;
+const port = 8000;
 
 // Middleware
 app.use(cors());

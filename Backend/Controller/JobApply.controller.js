@@ -19,10 +19,20 @@ const ApplyJOb = async (req, res) => {
     job.users.push({
       userId: userId,
       status: status,
-      date: new Date(date), 
+      date: new Date(date),  
       time: time,
-    
     });
+    
+    const userDate = new Date(date);
+    
+    if (isNaN(userDate.getTime())) {
+      console.error('Invalid Date:', date);
+    
+      job.users[job.users.length - 1].date = new Date(); 
+    } else {
+      job.users[job.users.length - 1].date = userDate; 
+    }
+    
     await job.save()
 
     console.log("job", job);

@@ -39,7 +39,9 @@ const Navbar = () => {
     navigate('/home');
     setActiveItem('home');
   };
-
+  const handleClickShowAppliedJob = () => {
+  navigate('/showappliedjob')
+}
   const handleClickShowJob = () => {
 
     navigate('/home');
@@ -130,6 +132,15 @@ const Navbar = () => {
                             Show Job
                           </a>
                         </li>
+                        <li>
+                          <a
+                            className={`dropdown-item ${activeItem === 'jobdetails' ? 'active' : ''}`}
+                            href="#"
+                            onClick={handleClickShowAppliedJob}
+                          >
+                            Applied Job
+                          </a>
+                        </li>
                       </>
                     ) : (
                       <>
@@ -143,6 +154,7 @@ const Navbar = () => {
                             Show Job
                           </a>
                         </li>
+                        
                       </>
                     )
                   }

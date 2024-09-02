@@ -14,6 +14,7 @@ import ProfileUpdate from '../src/Screens/ProfileUpdate.jsx';
 import ShowProfile from './Screens/ShowProfile.jsx';
 import SplashScreen from './Component/SplashScreen.jsx';
 import ShowApplyJob from './Screens/ShowApplyJob.jsx';
+import ShowAppliedJob from './Screens/ShowAppliedJob.jsx';
 
 
 
@@ -48,6 +49,7 @@ function App() {
         <Route path='/userlogin' element={<UserLogin />} />
         <Route path='/jobsdetails' element={<JobDetails />} />
         <Route path="/registration" element={<Registration />} />
+        <Route path="/showappliedjob" element={<ShowAppliedJob />} />
       </Routes>
      
       
