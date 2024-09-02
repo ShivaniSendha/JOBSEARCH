@@ -38,7 +38,8 @@ console.log("step1");
       status: "Applied",
       date: new Date(), // Current date and time
       time: new Date().toLocaleTimeString(),
-      resume:resume
+      resume: resume,
+      interviewDate: null
 
     });
 

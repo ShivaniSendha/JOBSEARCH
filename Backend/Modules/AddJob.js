@@ -95,7 +95,14 @@ const AddJobSchema = new mongoose.Schema({
       },
       resume:{
         type:String
-      }
+      },
+      interviewDate:{
+        date: Date,
+        time: String,
+        interviewDate: Date
+      },
+      
+      
       
     }
   ]

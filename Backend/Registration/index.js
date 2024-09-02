@@ -58,7 +58,8 @@ const updateProfileRoute = require('../Routes/user.routes.js');
 const ApplyJOb = require('../Routes/ApplyJob.route.js');
 const UserRouter = require('../Routes/user.routes.js');
 const AddJobRouter = require('../Routes/AddJob.routes.js');
-
+const Resume = require('../Routes/Resume.routes.js')
+const scheduleInterview =require('../Routes/InterviewSchedule.routes.js')
 // User-related routes
 app.use('/UserLogin', UserRouter);
 
@@ -75,6 +76,8 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + path.extname(file.originalname));
   }
 });
+app.use('/resume', Resume);
+app.use('/interview', scheduleInterview);
 
 const upload = multer({ storage: storage });
 
@@ -84,3 +87,7 @@ app.use('/ApplyJob', upload.single('resume'), ApplyJOb);
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+
+
+
