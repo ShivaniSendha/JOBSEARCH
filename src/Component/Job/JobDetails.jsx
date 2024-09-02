@@ -1,52 +1,102 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import logo from '../../assets/logoReg.avif';
-import { MdCastForEducation, MdOutlinePhoneAndroid, MdOutlineTimeline } from "react-icons/md";
-import { MdEmail } from "react-icons/md";
-import { FaLongArrowAltRight, FaRegUser } from 'react-icons/fa';
+import { MdCastForEducation, MdOutlinePhoneAndroid, MdOutlineTimeline, MdEmail } from "react-icons/md";
+import { FaLongArrowAltRight } from 'react-icons/fa';
 import { TbBrandNem, TbMoneybag } from 'react-icons/tb';
-import '../Job/JobDetails.css';
 import { IoLocationSharp, IoTimeSharp } from 'react-icons/io5';
 import Map from '../Map';
 import Footer from '../Footer/Footer.jsx';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { CiTimer } from 'react-icons/ci';
+import axios from 'axios';
 
-const JobDetails = (item) => {
-
-  console.log('item', item);
-
-  const alreadyApply = () => {
-    Swal.fire({
-      icon: "warning",
-      text: "Already You Have Applied ",
-
-    });
-  }
+const JobDetails = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const jobLocation = location.state?.job;
+  const job = location.state?.job;
+  const [jobs, setJobs] = useState(null);
 
-  const JobDetailss = () => {
-    navigate('/jobsdetails', { state: { job: item.jobId } });
-  };
-
-  navigate('/job-details', { state: { job: JobDetailss } });
-  const { state } = useLocation();
-  const job = state?.job;
-
+  const [userEmails, setUserEmails] = useState('');
+  const [userIDs, setUserIDs] = useState('');
   const UserData = JSON.parse(localStorage.getItem('user'));
   const userID = UserData?._id || UserData?.user?.id;
   const userEmail = UserData?.email || UserData?.user?.email;
-  console.log('userID', userID);
 
+  const [jobStatus, setJobStatus] = useState(false);
+  useEffect(() => {
 
-  const HomeClick = () => {
-    navigate('/home');
+    setUserIDs(UserData?._id || UserData?.user?.id);
+    setUserEmails(UserData?.email || UserData?.user?.email);
+  }, []);
+
+  useEffect(() => {
+    if (userID && job) {
+      axios.get(`http://localhost:8000/ApplyJob/api/jobs/find-user/${userID}`)
+        .then(result => {
+          console.log('API response:', result.data);
+
+          if (result.status === 200 && result.data.applied) {
+            setJobStatus(true);
+          } else {
+            setJobStatus(false);
+          }
+        })
+        .catch(err => {
+          console.error('Error checking job status:', err);
+          setJobStatus(false);
+        });
+    }
+  }, [userID, job]);
+
+  const handleApply = async () => {
+    if (!userID) {
+      Swal.fire({
+        icon: 'info',
+        text: 'Please sign up and log in first.',
+      });
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:8000/ApplyJob/api/jobs/apply', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ jobId: job._id, status: 'Applied', userId: userID }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success...',
+          text: 'Application submitted successfully.',
+        });
+        setJobStatus(true); // Update jobStatus after successful application
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error...',
+          text: data.message || 'Failed to apply',
+        });
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error...',
+        text: 'An error occurred',
+      });
+    }
   };
+
+  console.log('aoolysrar', jobStatus);
 
   const OpeningHours = {
     Monday: '9 AM - 5 PM',
@@ -58,60 +108,15 @@ const JobDetails = (item) => {
     Sunday: 'Closed'
   };
 
-  const handleApply = async () => {
-    if (!UserData) {
-
-
-      setTimeout(() => {
-
-        Swal.fire({
-          icon: "info",
-
-          text: "Firsty You Have Sign up & Login",
-
-        });
-
-      }, 500);
-    }
-    else {
-      try {
-        const response = await fetch('http://localhost:8000/ApplyJob/api/jobs/apply', {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ jobId: job._id, status: 'Applied', userId: userID }),
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          Swal.fire({
-            icon: "success",
-            title: "Success...",
-            text: "Apply Succesfully",
-
-          });
-          navigate('/home')
-        } else {
-          toast.error(data.message || 'Failed to apply');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        toast.error('An error occurred');
-      }
-    };
-  }
-
   return (
     <>
       <Navbar />
       <div className="hero-container">
-        <img src={logo} className="hero-image" alt="img" />
+        <img src={logo} className="hero-image" alt="logo" />
         <div className="hero-text">
           <h1>Job Details</h1>
           <div className="flex align-items-center m-3">
-            <span onClick={HomeClick} className="Home btn btn-outline-success">
+            <span onClick={() => navigate('/home')} className="Home btn btn-outline-success">
               Home
             </span>
             <span className="mx-2">&gt;&gt; Job Details</span>
@@ -121,33 +126,31 @@ const JobDetails = (item) => {
 
       <div className="container text-center">
         <div className="row">
-          <div className="container text-center mt-4 ">
+          <div className="container text-center mt-4">
             <div className="row justify-content-center">
               {/* First Column */}
               <div className="First col-md-8 mb-4 d-flex justify-content-evenly">
-                <div className="border-end p-4 First1 ">
+                <div className="border-end p-4 First1">
                   {job ? (
                     <div className="card1 p-3">
-                      <h2 className="fs-2">{job?.skills}</h2>
-                      <p className='companyNamelogo'> {job?.companyName}</p>
-                      <p><strong>Address:</strong> {job?.address}</p>
+                      <h2 className="fs-2">{job.skills.join(', ')}</h2>
+                      <p className='companyNamelogo'>{job.companyName}</p>
+                      <p><strong>Address:</strong> {job.address}</p>
 
-                      {userEmail==='admin@gmail.com' ? null :
+                      {/* Check if user is admin */}
+                      {userEmail === 'admin@gmail.com' ? null : (
                         job?.users?.some(user => user.userId === userID) ? (
-                          <button onClick={alreadyApply} disabled={true} className="btn btn-success">Applied</button>
+                          <button disabled className="btn btn-danger">Applied</button>
                         ) : (
                           <button onClick={handleApply} className="btn btn-primary">Apply Now</button>
                         )
-                      }
-
+                      )}
                     </div>
-                  )
+                  ) : (
+                    <p>No job details available.</p>
+                  )}
 
-                    : (
-                      <p>No job details available.</p>
-                    )}
                 </div>
-
                 {/* Second Column */}
                 <div className="col-md-4 mb-4">
                   <div className="First p-4">
@@ -181,8 +184,8 @@ const JobDetails = (item) => {
                 </div>
 
                 {/* Job Description */}
-                <div className="container-fluid mt-4 rounded job p-4 ">
-                  <div className="d-flex align-items-center bg-dark rounded ">
+                <div className="container-fluid mt-4 rounded job p-4">
+                  <div className="d-flex align-items-center bg-dark rounded">
                     <h1 className="ms-2 text-light fs-4 p-2">Job Description</h1>
                   </div>
                   <p className='text-start'>
@@ -193,14 +196,14 @@ const JobDetails = (item) => {
                 {/* Skills */}
                 <div className="container-fluid mt-4 rounded job p-4">
                   <div className="d-flex align-items-center fs-2 bg-dark rounded">
-                    <h1 className="ms-2 text-light fs-4 p-2">Job Skill</h1>
+                    <h1 className="ms-2 text-light fs-4 p-2">Job Skills</h1>
                   </div>
                   <p className='text-start'>
                     <FaLongArrowAltRight /> Contrary to popular belief, Lorem Ipsum is not simply random text <br />
                     <FaLongArrowAltRight /> Latin professor at Hampden-Sydney College in Virginia <br />
-                    <FaLongArrowAltRight /> looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage ideas <br />
+                    <FaLongArrowAltRight /> Looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage ideas <br />
                     <FaLongArrowAltRight /> The standard chunk of Lorem Ipsum used since the 1500s is reproduced <br />
-                    <FaLongArrowAltRight /> accompanied by English versions from the 1914 translation by H. Rackham
+                    <FaLongArrowAltRight /> Accompanied by English versions from the 1914 translation by H. Rackham
                   </p>
                 </div>
 
@@ -211,26 +214,24 @@ const JobDetails = (item) => {
                   </div>
                   <p className='text-start'>
                     <FaLongArrowAltRight /> There are many variations of passages of Lorem Ipsum available simply random text <br />
-                    <FaLongArrowAltRight /> you need to be sure there isn't anything embarrassing hidden <br />
-                    <FaLongArrowAltRight /> generators on the Internet tend to repeat predefined chunks as necessary <br />
-                    <FaLongArrowAltRight /> making this the first true generator on the Internet It uses a dictionary <br />
+                    <FaLongArrowAltRight /> You need to be sure there isn't anything embarrassing hidden <br />
+                    <FaLongArrowAltRight /> Generators on the Internet tend to repeat predefined chunks as necessary <br />
+                    <FaLongArrowAltRight /> Making this the first true generator on the Internet. It uses a dictionary <br />
                     <FaLongArrowAltRight /> Ability to solve problems creatively and effectively <br />
-                    <FaLongArrowAltRight /> combined with a handful of model sentence structures <br />
-                    <FaLongArrowAltRight /> standard chunk of Lorem Ipsum used since the 1500s is reproduced
+                    <FaLongArrowAltRight /> Combined with a handful of model sentence structures <br />
+                    <FaLongArrowAltRight /> Standard chunk of Lorem Ipsum used since the 1500s is reproduced
                   </p>
                 </div>
 
                 {/* Location */}
-
-                <div className="container-fluid mt-4  rounded Map ">
+                <div className="container-fluid mt-4 rounded Map">
                   <div className="d-flex align-items-center fs-2 bg-dark rounded">
-
-                    <h1 className="ms-2 text-light fs-4 p-2 ">Location</h1>
+                    <h1 className="ms-2 text-light fs-4 p-2">Location</h1>
                   </div>
-                  <div className='mt-2'>   <Map /></div>
-
+                  <div className='mt-2'><Map /></div>
                 </div>
               </div>
+
               {/* Third Column */}
               <div className="col-md-4 mb-4">
                 {/* Location Section */}
@@ -240,7 +241,7 @@ const JobDetails = (item) => {
                     <h1 className="ms-2 text-light fs-4 p-2">Location</h1>
                   </div>
                   {job ? (
-                    <div className="card3 p-3 ">
+                    <div className="card3 p-3">
                       <div className="d-flex align-items-center justify-content-start mb-3">
                         <TbMoneybag size={25} />
                         <p className="mb-0 ms-2">Package: {job.salaryRange}</p>
@@ -277,48 +278,24 @@ const JobDetails = (item) => {
                     <IoTimeSharp size={40} color='green' />
                     <h1 className="ms-2 text-light fs-4 p-2">Opening Hours</h1>
                   </div>
-                  {job ? (
-                    <div className="card3 p-3 ">
-                      <div className="d-flex align-items-center justify-content-between mb-3">
-                        <p className='fs-5'>Monday</p>
-                        <p className="">{OpeningHours.Monday}</p>
+                  <div className="card3 p-3">
+                    {Object.keys(OpeningHours).map(day => (
+                      <div className="d-flex align-items-center justify-content-between mb-3" key={day}>
+                        <p className='fs-5'>{day}</p>
+                        <p className={day === 'Saturday' || day === 'Sunday' ? 'text-danger' : ''}>{OpeningHours[day]}</p>
                       </div>
-                      <div className="d-flex align-items-center justify-content-between mb-3">
-                        <p className='fs-5'>Tuesday</p>
-                        <p>{OpeningHours.Tuesday}</p>
-                      </div>
-                      <div className="d-flex align-items-center justify-content-between mb-3">
-                        <p className='fs-5'>Thursday</p>
-                        <p>{OpeningHours.Thursday}</p>
-                      </div>
-                      <div className="d-flex align-items-center justify-content-between mb-3">
-                        <p className='fs-5'>Friday</p>
-                        <p>{OpeningHours.Friday}</p>
-                      </div>
-                      <div className="d-flex align-items-center justify-content-between mb-3">
-                        <p className='fs-5'>Saturday</p>
-                        <p className='text-danger'>{OpeningHours.Saturday}</p>
-                      </div>
-                      <div className="d-flex align-items-center justify-content-between">
-                        <p className='fs-5'>Sunday</p>
-                        <p className='text-danger'>{OpeningHours.Sunday}</p>
-                      </div>
-                    </div>
-                  ) : (
-                    <p>No job details available.</p>
-                  )}
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
-
       </div>
-
       <Footer />
     </>
   );
-};
+}
+
 
 export default JobDetails;

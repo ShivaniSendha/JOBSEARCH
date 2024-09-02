@@ -39,9 +39,15 @@ const Navbar = () => {
     navigate('/home');
     setActiveItem('home');
   };
+<<<<<<< HEAD
   const handleClickShowAppliedJob = () => {
   navigate('/showappliedjob')
 }
+=======
+
+
+  
+>>>>>>> 72ece2d6a71ac714ed02b78c146be9f6393d6886
   const handleClickShowJob = () => {
 
     navigate('/home');
