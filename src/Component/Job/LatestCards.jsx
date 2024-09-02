@@ -35,7 +35,7 @@ const LatestCards = (item) => {
           <span className="badge bg-primary w-10">{item?.jobId?.experience}</span>
 
           <button onClick={JobDetails} type="button" className="btn btn-outline-dark">Show Details </button>
-          {hasApplied ? <p  className='text-success mt-2'>Applied</p> : null}
+          {hasApplied ? <p  className='text-success mt-2 p-5 bg-danger'>Applied</p> : null}
 
         </div>
       </div>

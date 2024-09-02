@@ -40,6 +40,8 @@ const Navbar = () => {
     setActiveItem('home');
   };
 
+
+  
   const handleClickShowJob = () => {
 
     navigate('/home');
@@ -130,6 +132,8 @@ const Navbar = () => {
                             Show Job
                           </a>
                         </li>
+
+                       
                       </>
                     ) : (
                       <>

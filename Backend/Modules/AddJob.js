@@ -88,10 +88,15 @@ const AddJobSchema = new mongoose.Schema({
       },
       date: {
         type: String,
+        default: Date.now
       },
       time: {
         type: String
+      },
+      resume:{
+        type:String
       }
+      
     }
   ]
  
