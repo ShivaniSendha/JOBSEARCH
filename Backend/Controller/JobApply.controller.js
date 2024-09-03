@@ -39,8 +39,7 @@ console.log("step1");
       date: new Date(), // Current date and time
       time: new Date().toLocaleTimeString(),
       resume: resume,
-      interviewDate: null
-
+      interviewDate: new Date(),
     });
 
     console.log("step5");

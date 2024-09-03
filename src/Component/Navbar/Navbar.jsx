@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import logo from '../../assets/softude.png';
+import logo from '../../assets/JobLogo1.png';
 import { useNavigate } from 'react-router-dom';
 import { FaLongArrowAltRight } from "react-icons/fa";
 import '../Navbar/Navbar.css';
@@ -15,7 +15,7 @@ const Navbar = () => {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     setUserData(user);
-    console.log("hiiiiiiiiaii", user);
+  
   }, []);
 
   const userName = userData?.name || userData?.user?.name;
@@ -83,7 +83,7 @@ const Navbar = () => {
   return (
     <nav className={`navbar navbar-expand-lg shadow-sm p-3 ${scrolled ? 'navbar-scrolled' : 'bg-transparent'}`}>
       <div className="container-fluid">
-       <IoIosContact size={20} color='white' />
+      <img src={logo} alt="" style={{width:'90px',height:'60px',}} />
         <button
           className="navbar-toggler"
           type="button "

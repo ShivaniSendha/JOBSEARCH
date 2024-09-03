@@ -20,7 +20,7 @@ const Home = () => {
         alt="Your Image Description"></img>
 
       <div data-aos="fade-down" data-aos-easing="linear"
-        data-aos-duration="1500" className="hero-text flex rounded rounded-5 " style={{ top: '30%' }}>
+        data-aos-duration="1500" className="hero-text flex rounded rounded-5 " style={{ top: '40%' }}>
         <h1 className='heading'>Search , Apply & <br></br> Get Your <span className='text-primary'>Dreams Jobs</span></h1>
         <FaHandPointDown size={40} color='white' />
       </div>

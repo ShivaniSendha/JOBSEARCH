@@ -29,7 +29,7 @@ const Registration = () => {
     navigate('/home')
   }
   const validateEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.endsWith('@gmail.com');
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ;
   };
 
   const validatePassword = (password) => {

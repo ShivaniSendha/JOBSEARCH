@@ -44,11 +44,14 @@ const AddJob = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log('111', name, value);
+ 
     setJobData({
       ...jobData,
       [name]: value
     });
+  };
+  const validatePhoneno = (phoneNo) => {
+    return /^\d{10,}$/.test(phoneNo);
   };
 
   const validateForm = () => {
@@ -97,11 +100,10 @@ const AddJob = () => {
       toast.error('Category is required');
       return false;
     }
-    if (jobData.phoneNo.length < 10) {
+    if (!validatePhoneno(jobData.phoneNo)) {
       toast.error('Phone number must be at least 10 digits long.');
-      return false;
+      return;
     }
-
     if (!jobData.address) {
       toast.error('Address is required');
       return false;

@@ -2,7 +2,7 @@
 // eslint-disable-next-line no-undef
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/JOB-SEARCH', {
+mongoose.connect('mongodb://localhost:27017/Job-Search', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {

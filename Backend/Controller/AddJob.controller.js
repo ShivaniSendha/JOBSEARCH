@@ -47,4 +47,38 @@ const GetAllJOb = async (req, res) => {
   }
 }
 
-  module.exports = { AddNewJob, GetAllJOb };
+// =============DeleteJob
+const DeleteJob = async (req, res) => {
+ 
+  try {
+console.log('====================================');
+console.log('req.params', req.params?.id);
+console.log('====================================');
+    const job = await AddJob.findOne({_id: req.params.id});
+    if (!job) return res.status(404).json({ error: "Job not found" });
+    await job.deleteOne(); 
+    return res.status(200).json({ message: "Job deleted" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: err.message });
+  }
+};
+// ======updatejob
+const UpdateJob = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const jobData = req.body;
+    const job = await AddJob.findOne({ _id: id });
+    if (!job) {
+      return res.status(404).json({ error: "Job not found" });
+    }
+    Object.assign(job, jobData);
+    await job.save();
+    return res.status(200).json({ message: "Job updated successfully", job });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: err.message });
+  }
+};
+
+  module.exports = { AddNewJob, GetAllJOb,DeleteJob ,UpdateJob};

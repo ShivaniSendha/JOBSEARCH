@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 
 const ScheduleInterviewModal = ({ userApplication, jobId, onClose }) => {
   const [interviewDate, setInterviewDate] = useState('');
@@ -7,7 +8,6 @@ const ScheduleInterviewModal = ({ userApplication, jobId, onClose }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Validate that necessary fields are available
     if (!userApplication || !jobId) {
       alert('Missing required information for scheduling the interview.');
       return;
@@ -20,29 +20,42 @@ const ScheduleInterviewModal = ({ userApplication, jobId, onClose }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          userId: userApplication.userId._id,  
-          jobId: jobId,  
+          userId: userApplication.userId._id,
+          jobId,
           date: interviewDate,
           time: interviewTime,
         }),
       });
 
       if (response.ok) {
-        alert('Interview scheduled successfully');
-        onClose();
+        Swal.fire({
+          icon: 'success',
+          title: 'Interview Scheduled',
+          text: 'The interview has been successfully scheduled, and an email has been sent to the user.',
+        });
+        onClose(); // Close the modal
       } else {
-        alert('Failed to schedule interview');
+        Swal.fire({
+          icon: 'error',
+          title: 'Failed to Schedule',
+          text: 'There was an issue scheduling the interview. Please try again.',
+        });
       }
     } catch (error) {
       console.error('Error scheduling interview:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'An error occurred while scheduling the interview.',
+      });
     }
   };
 
   return (
-    <div className="modal" style={{ display: 'block' }}>
+    <div className="modal " style={{ display: 'block' }}>
       <div className="modal-dialog">
         <div className="modal-content">
-          <div className="modal-header">
+          <div className="modal-header UpdateModal">
             <h5 className="modal-title">Schedule Interview</h5>
             <button type="button" className="close" onClick={onClose}>
               &times;
@@ -72,7 +85,7 @@ const ScheduleInterviewModal = ({ userApplication, jobId, onClose }) => {
                   required
                 />
               </div>
-              <button type="submit" className="btn btn-primary">Schedule</button>
+              <button type="submit" className="btn btn-primary UpdateModal">Schedule</button>
             </form>
           </div>
         </div>

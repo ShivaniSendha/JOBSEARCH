@@ -287,6 +287,7 @@ console.log("dsdjkfjdsfdjsf",userEmail)
             <div className='options'>
             <CiEdit size={30} color='white' />
             <button onClick={handleClickJobdetails} className=' border-0   btnoption'>Edit profile</button>
+            <FaLongArrowAltRight size={30} color='white' />
             </div>
             <div className='options'>
             <BiDetail size={30} color='white' />

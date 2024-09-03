@@ -1,4 +1,3 @@
-
 /* Navbar styles */
 .navbar {
   position: fixed; /* Keeps it at the top */
@@ -7,7 +6,6 @@
   z-index: 1000; /* Ensure it's above other content */
   margin: 0; /* Reset any margin */
 }
-
 
 .navbar-scrolled {
   background: rgb(34,193,195);
@@ -20,54 +18,47 @@
 
 .dropdown:hover .dropdown-menu {
   display: block;
-
   padding: 10px;
 }
 
 .dropdown-menu {
   background-color: #f8f9fa;
   border-radius: 10px;
-
   box-shadow: 0px 4px 8px rgba(88, 85, 85, 0.1);
   transition: opacity 200ms ease-in-out, visibility 200ms ease-in-out;
 }
+
 .dropdown-item:hover {
   background-color: #28a745;
   color: white;
 }
 
 .dropdownP .dropdown-menuP {
-  display: none; 
-  position: absolute; 
-margin-left: -50px;
+  display: none;
+  position: absolute;
+  margin-left: -50px;
   padding: 10px;
   background: rgb(34,193,195);
-background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(121,175,137,1) 50%);
+  background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(121,175,137,1) 50%);
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(88, 85, 85, 0.1);
   transition: opacity 200ms ease-in-out, visibility 200ms ease-in-out;
   width: 200px;
   height: auto;
-
 }
 
-
 .dropdownP:hover .dropdown-menuP {
-  display: block; 
- 
+  display: block;
 }
 
 .dropdown-itemP {
   text-decoration: none;
-padding: 5px;
-
+  padding: 5px;
 }
 
 .dropdown-itemP:hover {
   background-color: #28a745;
   color: white;
-
-
 }
 
 .dropdown-itemP.active {
@@ -76,7 +67,6 @@ padding: 5px;
   font-weight: bold;
 }
 
-
 .profile {
   width: 50px;
   height: 50px;
@@ -84,22 +74,56 @@ padding: 5px;
   text-align: center;
   margin-left: 30px;
 }
-.Profilelogo{
-  text-align: center;
 
-  
+.Profilelogo {
+  text-align: center;
 }
+
 .collapse {
- 
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 100%; 
+  width: 100%;
 }
 
 .main {
-  width: 100%; 
- max-width: 450px;
-/* Center the main container */
+  width: 100%;
+  max-width: 450px; 
 }
 
+/* Responsive styling for small screens */
+@media (max-width: 767px) {
+  .navbar-nav {
+    flex-direction: column;
+    align-items: center;
+    width: 100%; 
+  }
+
+  .navbar-nav .nav-item {
+    width: 100%; 
+  }
+
+  .btn-outline-success {
+    width: 100%;
+    margin-bottom: 10px; 
+  }
+
+  .dropdown-menu {
+    width: 100%; 
+  }
+
+  .collapse {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile {
+    margin-left: 0; 
+    margin-top: 10px;
+  }
+
+  .main {
+    max-width: 100%; 
+  }
+}
