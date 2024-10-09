@@ -1,5 +1,10 @@
 
-
+const updateProfileRoute = require('../Routes/user.routes.js');
+const ApplyJOb = require('../Routes/ApplyJob.route.js');
+const UserRouter = require('../Routes/user.routes.js');
+const AddJobRouter = require('../Routes/AddJob.routes.js');
+const Resume = require('../Routes/Resume.routes.js')
+const scheduleInterview =require('../Routes/InterviewSchedule.routes.js')
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -20,12 +25,7 @@ app.get('/', (req, res) => {
 });
 
 // Import routes
-const updateProfileRoute = require('../Routes/user.routes.js');
-const ApplyJOb = require('../Routes/ApplyJob.route.js');
-const UserRouter = require('../Routes/user.routes.js');
-const AddJobRouter = require('../Routes/AddJob.routes.js');
-const Resume = require('../Routes/Resume.routes.js')
-const scheduleInterview =require('../Routes/InterviewSchedule.routes.js')
+
 // User-related routes
 app.use('/UserLogin', UserRouter);
 
